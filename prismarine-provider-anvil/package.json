@@ -1,0 +1,74 @@
+{
+  "_from": "prismarine-provider-anvil@2.3.1",
+  "_id": "prismarine-provider-anvil@2.3.1",
+  "_inBundle": false,
+  "_integrity": "sha512-Swfxy1mdoZ4ctRX1Rz7ajIU/CsEe+Fe7LD+0FOEg4bizcrzmQBY60F3JSMixew9cQRqdPAlCq3WYLzjqFQIP7A==",
+  "_location": "/prismarine-provider-anvil",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "prismarine-provider-anvil@2.3.1",
+    "name": "prismarine-provider-anvil",
+    "escapedName": "prismarine-provider-anvil",
+    "rawSpec": "2.3.1",
+    "saveSpec": null,
+    "fetchSpec": "2.3.1"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/prismarine-provider-anvil/-/prismarine-provider-anvil-2.3.1.tgz",
+  "_shasum": "360c64ad15e24433145c3eb96643e39e0602c8a2",
+  "_spec": "prismarine-provider-anvil@2.3.1",
+  "_where": "C:\\Users\\matis\\Documents\\bot-pvp-server",
+  "author": {
+    "name": "Romain Beaumont",
+    "email": "romain.rom1@gmail.com"
+  },
+  "bugs": {
+    "url": "https://github.com/PrismarineJS/prismarine-provider-anvil/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "prismarine-chunk": "^1.20.1",
+    "prismarine-nbt": "^1.3.0",
+    "uint4": "^0.1.2",
+    "vec3": "^0.1.6"
+  },
+  "deprecated": false,
+  "description": "Anvil Storage Provider implementation.",
+  "devDependencies": {
+    "buffer-equal": "^1.0.0",
+    "flatmap": "0.0.3",
+    "minecraft-data": "^2.63.0",
+    "mkdirp": "^0.5.1",
+    "mocha": "^8.0.1",
+    "range": "0.0.3",
+    "rimraf": "^3.0.2",
+    "standard": "^14.3.4"
+  },
+  "homepage": "https://github.com/PrismarineJS/prismarine-provider-anvil",
+  "keywords": [
+    "minecraft",
+    "voxel",
+    "chunk",
+    "world",
+    "prismarine"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "name": "prismarine-provider-anvil",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PrismarineJS/prismarine-provider-anvil.git"
+  },
+  "scripts": {
+    "fix": "standard --fix",
+    "lint": "standard",
+    "pretest": "npm run lint",
+    "test": "mocha test/"
+  },
+  "version": "2.3.1"
+}
