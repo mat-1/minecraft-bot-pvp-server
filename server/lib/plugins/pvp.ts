@@ -63,9 +63,6 @@ module.exports.entity = (entity, serv: MCServer) => {
 		entity.velocityChanged = true
 
 		// vanilla
-
-		console.log(originalVelocity)
-
 		return new Vec3(originalVelocity.x / 2.0 - normalizedVelocity.x, entity.onGround ? Math.min(0.4, originalVelocity.y / 2.0 + multiplier) : originalVelocity.y, originalVelocity.z / 2.0 - normalizedVelocity.z)
 
 		// combo
@@ -91,11 +88,11 @@ module.exports.entity = (entity, serv: MCServer) => {
 
 		if (entity.health <= 0) {
 			console.log('entity ded lol')
+			entity.alive = false
 			entity._writeNearby('entity_status', {
 				entityId: entity.id,
 				entityStatus: 3
 			})
-			entity.alive = false
 			setTimeout(() => {
 				// if the send the entity_destroy immediately then theres no animation
 				entity._writeOthersNearby('entity_destroy', {

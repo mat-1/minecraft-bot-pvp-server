@@ -44,10 +44,11 @@ module.exports.server = (serv: MCServer) => {
 					subtitle: {'text': 'Do /pvp to play again', 'italic': true, 'color': '#6b6b6b'},
 					display: {
 						fadeIn: .5,
-						stay: 2,
-						fadeOut: 1,
+						stay: 5,
+						fadeOut: 2,
 					}
 				})
+				bot._client.end(null)
 			})
 		}
 	})
