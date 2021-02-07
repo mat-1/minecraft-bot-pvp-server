@@ -50,6 +50,15 @@ module.exports.server = (serv: MCServer) => {
 				})
 				bot._client.end(null)
 			})
+
+			// check if the world isn't being used anymore every 10 seconds
+			const worldDestroyerInterval = setInterval(() => {
+				if (serv.isWorldInactive(gameWorld)) {
+					console.log('world is being destroyed!')
+					serv.destroyWorld(gameWorld)
+					clearInterval(worldDestroyerInterval)
+				}
+			}, 1000)
 		}
 	})
 }

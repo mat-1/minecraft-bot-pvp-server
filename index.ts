@@ -2,8 +2,6 @@ import createMCServer from './server/index'
 import * as WorldConstructor from 'prismarine-world'
 import { Anvil as AnvilConstructor } from 'prismarine-provider-anvil'
 
-const worlds = {}
-
 const serv = createMCServer({
 	'motd': 'matdoes.dev\npvp',
 	'port': 25565,

@@ -23,15 +23,15 @@ class FakeClient extends require('events') {
 	emit(type: string, data?: any) {
 		const listeners = this.listeners(type)
 		for (const listener of listeners) {
-			if (type === 'end')
-				console.log('listener', listener)
 			if (data !== null) listener(data)
 			else listener()
 		}
 	}
 	registerChannel(protocolVersion: string, data: any) {}
 	writeChannel(protocolVersion: string, data: any) {}
-	
+	end() {
+		this.write('end', null)
+	}
 }
 
 module.exports.server = (serv: MCServer, { version }) => {
@@ -72,8 +72,11 @@ module.exports.server = (serv: MCServer, { version }) => {
 					}
 				},
 				removeListener: bot._client.removeListener,
-				registerChannel: (protocolVersion: string, data: any) => {},
-				writeChannel: (protocolVersion: string, data: any) => {}
+				registerChannel(protocolVersion: string, data: any) {},
+				writeChannel(protocolVersion: string, data: any) {},
+				end() {
+					bot._client.write('end', null)
+				}
 			}
 			bot._client.on('event', (type, ...args) => {
 				for (const [eventName, callbacks] of clientEvents) {
@@ -91,15 +94,6 @@ module.exports.server = (serv: MCServer, { version }) => {
 			})
 			bot.once('spawn', () => {
 				bot.once('physicTick', () => resolve(bot))
-			})
-
-			bot._client.end = () => {
-				console.log('bot ended')
-				bot._client.emit('event', 'end', null)
-			}
-
-			bot._client.on('end', function asdfTest() {
-				console.log('xD')
 			})
 		})
 	}

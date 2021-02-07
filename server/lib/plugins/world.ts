@@ -58,8 +58,31 @@ module.exports.server = async(serv: MCServer, { version, worldFolder, generation
 			})
 	}
 
-	// serv.pregenWorld(serv.overworld).then(() => serv.log('Pre-Generated Overworld'));
-	// serv.pregenWorld(serv.netherworld).then(() => serv.log('Pre-Generated Nether'));
+	serv.destroyWorld = (world: World) => {
+		serv.players
+			.filter(player => player.world === world)
+			.forEach(player => {
+				player.kick('World destroyed')
+				delete serv.players[player.id]
+			})
+		for (const entityId in serv.entities) {
+			const entity = serv.entities[entityId]
+			if (entity.world === world)
+				delete serv.entities[entity.id]
+		}
+		console.log('World destroyed!')
+	}
+
+	/** Returns true if there are no humans in the world, otherwise false **/
+	serv.isWorldInactive = (world: World) => {
+		for (const playerUUID in serv.players) {
+			const player = serv.players[playerUUID]
+			if (!player.isNpc && player.world === world)
+				return false
+		}
+		return true
+	}
+
 	serv.commands.add({
 		base: 'changeworld',
 		info: 'to change world',

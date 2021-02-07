@@ -75,6 +75,8 @@ export class MCServer extends EventEmitter {
 
 	// world
 	pregenWorld: (world: World, size: number) => Promise<any[]>
+	destroyWorld: (world: World) => void
+	isWorldInactive: (world: World) => boolean
 	setBlock: (world: World, position: Vec3, stateId: number) => Promise<void>
 	setBlockType: (world: World, position: Vec3, id: number) => Promise<void>
 	setBlockAction: (world: World, position: Vec3, actionId: number, actionParam: number) => Promise<void>
