@@ -147,6 +147,7 @@ class RegionFile {
 
   /* write a chunk at (x,z) with length bytes of data to disk */
   async _write (x, z, nbtData) {
+    return
     await this.ini
     const uncompressedData = nbt.writeUncompressed(nbtData)
     const data = await deflateAsync(uncompressedData)
