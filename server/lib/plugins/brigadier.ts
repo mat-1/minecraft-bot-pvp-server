@@ -1,9 +1,6 @@
-import { CommandDispatcher, literal, argument, string, Suggestions, CommandNode, RootCommandNode, LiteralCommandNode, ArgumentCommandNode } from 'node-brigadier'
-import * as requireIndex from '../requireindex'
+import { CommandDispatcher, literal, argument, string, Suggestions, CommandNode, RootCommandNode, LiteralCommandNode, ArgumentCommandNode, CommandSyntaxException } from 'node-brigadier'
+import plugins from '../plugins'
 import { MCServer } from '../..'
-import * as path from 'path'
-
-const plugins = requireIndex(path.join(__dirname, '..', 'plugins'))
 
 module.exports.server = (serv: MCServer) => {
 	const dispatcher = new CommandDispatcher()
@@ -63,7 +60,6 @@ interface NodeFlags {
 module.exports.player = (player, serv: MCServer) => {
 	const root = serv.brigadier.getRoot()
 	const commandNodes = makeNodeMap(root)
-	console.log(commandNodes)
 	const jsonCommandNodes = []
 	for (const nodeInt in commandNodes) {
 		const node = commandNodes[nodeInt]
@@ -103,7 +99,6 @@ module.exports.player = (player, serv: MCServer) => {
 		jsonNode.children = children
 		jsonCommandNodes.push(jsonNode)
 	}
-	console.log(jsonCommandNodes)
 	player._client.write('declare_commands', {
 		nodes: jsonCommandNodes,
 		rootIndex: commandNodes.indexOf(root)
@@ -116,7 +111,11 @@ module.exports.player = (player, serv: MCServer) => {
 		try {
 			serv.brigadier.execute(parsedCommand)
 		} catch (ex) {
-			console.error(ex.getMessage())
+			if (ex instanceof CommandSyntaxException) {
+				player.chat(serv.color.red + ex.getMessage())
+			} else {
+				throw ex
+			}
 		}
 	}
 

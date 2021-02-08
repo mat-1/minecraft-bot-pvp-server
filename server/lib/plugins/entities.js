@@ -35,7 +35,7 @@ module.exports.server = function (serv) {
 
 module.exports.entity = function (entity) {
   entity.sendMetadata = (data) => {
-    entity._writeOthersNearby('entity_metadata', {
+    entity._writeNearby('entity_metadata', {
       entityId: entity.id,
       metadata: data
     })

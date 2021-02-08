@@ -1,9 +1,7 @@
 import { Vec3 } from 'vec3'
 
-import * as path from 'path'
 import * as crypto from 'crypto'
-import * as requireIndex from '../requireindex'
-const plugins = requireIndex(path.join(__dirname, '..', 'plugins'))
+import plugins from '../plugins'
 import * as playerDat from '../playerDat'
 import * as convertInventorySlotId from '../convertInventorySlotId'
 
@@ -160,7 +158,7 @@ module.exports.player = async function (player, serv, settings) {
 	}
 
 	function fillTabList() {
-		player._writeOthers('player_info', {
+		const playerInfo = {
 			action: 0,
 			data: [{
 				UUID: player.uuid,
@@ -169,7 +167,13 @@ module.exports.player = async function (player, serv, settings) {
 				gamemode: player.gameMode,
 				ping: player._client.latency
 			}]
-		})
+		}
+
+		if (player.isNpc)
+			// TODO: change this to _writeOthersNearby and periodically check for nearby players to send the player_info to
+			player._writeOthers('player_info', playerInfo)
+		else
+			player._writeOthers('player_info', playerInfo)
 
 		player._client.write('player_info', {
 			action: 0,
@@ -184,7 +188,7 @@ module.exports.player = async function (player, serv, settings) {
 		console.log('written player_info')
 		setInterval(() => player._client.write('player_info', {
 			action: 2,
-			data: serv.players.map(otherPlayer => ({
+			data: serv.players.filter(otherPlayer => otherPlayer.uuid !== undefined).map(otherPlayer => ({
 				UUID: otherPlayer.uuid,
 				ping: otherPlayer._client.latency
 			}))

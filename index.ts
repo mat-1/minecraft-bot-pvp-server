@@ -6,7 +6,7 @@ const serv = createMCServer({
 	'motd': 'matdoes.dev\npvp',
 	'port': 25565,
 	'max-players': 1000,
-	'online-mode': false,
+	'online-mode': true,
 	'logging': true,
 	'gameMode': 2,
 	'difficulty': 1,

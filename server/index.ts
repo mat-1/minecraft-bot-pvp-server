@@ -1,9 +1,8 @@
 import * as mc from 'minecraft-protocol'
 import { EventEmitter } from 'events'
-import * as path from 'path'
-import * as requireIndex from './lib/requireindex'
 import { supportedVersions } from './lib/version'
 import * as Command from './lib/command'
+import plugins from './lib/plugins'
 
 import type { PlaceItemData, InteractBlockData } from './lib/plugins/placeBlock'
 import type { putBlockEntityOptions, removeBlockEntityOptions } from './lib/plugins/blockEntities'
@@ -52,6 +51,38 @@ declare module 'minecraft-protocol' {
 
 class NMPServer extends require('minecraft-protocol').Server {
 
+}
+
+interface Color {
+	black: string
+	dark_blue: string
+	dark_green: string
+	dark_red: string
+	purple: string
+	dark_purple: string
+	gold: string
+	gray: string
+	grey: string
+	dark_gray: string
+	dark_grey: string
+	blue: string
+	green: string
+	aqua: string
+	cyan: string
+	red: string
+	pink: string
+	light_purple: string
+	yellow: string
+	white: string
+	random: string
+	obfuscated: string
+	bold: string
+	strikethrough: string
+	underlined: string
+	underline: string
+	italic: string
+	italics: string
+	reset: string
 }
 
 export class MCServer extends EventEmitter {
@@ -118,6 +149,9 @@ export class MCServer extends EventEmitter {
 	// brigadier
 	brigadier: CommandDispatcher<unknown>
 
+	// chat (todo)
+	color: Color
+
 	constructor () {
 		super()
 		this._server = null
@@ -130,7 +164,6 @@ export class MCServer extends EventEmitter {
 		}
 		this.supportFeature = feature => supportFeature(feature, version.majorVersion)
 
-		const plugins = requireIndex(path.join(__dirname, 'lib', 'plugins'))
 		this.commands = new Command({})
 		this._server = mc.createServer(options)
 		Object.keys(plugins)

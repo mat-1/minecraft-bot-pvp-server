@@ -5,6 +5,7 @@ import type { MCServer } from '../..'
 import { v4 as uuidv4 } from 'uuid'
 import World from 'prismarine-world'
 import { Vec3 } from 'vec3'
+import { CommandDispatcher } from 'node-brigadier'
  
 export interface NpcOptions {
 	username: string,
@@ -97,38 +98,17 @@ module.exports.server = (serv: MCServer, { version }) => {
 			bot.once('spawn', () => {
 				bot.once('physicTick', () => resolve(bot))
 			})
+			bot.on('death', () => {
+				bot.end()
+			})
 		})
 	}
-	// serv.commands.add({
-	// 	base: 'npc',
-	// 	info: 'Create an NPC',
-	// 	usage: '/npc',
-	// 	tab: [],
-	// 	op: true,
-	// 	parse(str) {
-	// 		return str.split(' ')
-	// 	},
-	// 	async action(args, ctx) {
-	// 		if (args.length >= 1 && args[0] === 'pvp') {
-	// 			const bot: any = await serv.createNPC({
-	// 				username: 'pvpNPC',
-	// 				world: ctx.player.world
-	// 			})
-	// 			PVPBot(bot)
-	// 			bot.pvp.start(ctx.player)
-	// 		} else {
-	// 			serv.createNPC({
-	// 				username: 'npc',
-	// 				world: ctx.player.world
-	// 			})
-	// 		}
-	// 	}
-	// })
 }
 
-module.exports.brigadier = (dispatcher, serv, { literal }) => {
+module.exports.brigadier = (dispatcher: CommandDispatcher<unknown>, serv, { literal }) => {
 	dispatcher.register(	
 		literal('npc')
+			.requires(c => c.player.op)
 			.executes(c => {
 				const source: any = c.getSource()
 				serv.createNPC({
@@ -137,5 +117,18 @@ module.exports.brigadier = (dispatcher, serv, { literal }) => {
 				})
 				return 0
 			})
+			.then(
+				literal('pvp')
+					.executes(async c => {
+						const source: any = c.getSource()
+						const bot: any = await serv.createNPC({
+							username: 'npc',
+							world: source.player.world
+						})
+						PVPBot(bot)
+						bot.pvp.start(source.player)
+						return 0
+					})
+			)
 		)
 }

@@ -1,8 +1,8 @@
 const Vec3 = require('vec3').Vec3
 import * as WorldConstructor from 'prismarine-world'
 import { Anvil as AnvilConstructor } from 'prismarine-provider-anvil'
-import PVPBot from '../../../mineflayer-pvp'
-import type { MCServer } from '../..'
+import PVPBot from '../../mineflayer-pvp'
+import type { MCServer } from '../'
 import { CommandDispatcher } from 'node-brigadier'
 
 const arenaWorlds = ['arena1', 'arena2', 'arena3']
@@ -24,7 +24,7 @@ module.exports.server = (serv: MCServer) => {
 		)
 		player.updateHealth(20)
 		const bot = await serv.createNPC({
-			username: 'bot',
+			username: 'bot' + Math.floor(Math.random() * 10000),
 			world: gameWorld,
 			position: new Vec3(-14.5, 65, 0.5)
 		})
@@ -54,21 +54,21 @@ module.exports.server = (serv: MCServer) => {
 		}, 7500)
 		})
 	
-		// check if the world isn't being used anymore every 10 seconds
-		const worldDestroyerInterval = setInterval(() => {
-			if (serv.isWorldInactive(gameWorld)) {
-				console.log('world is being destroyed!')
-				serv.destroyWorld(gameWorld)
-				clearInterval(worldDestroyerInterval)
-			}
-		}, 1000)
+		// check if the world isn't being used anymore every second
+		setTimeout(() => { // wait 5 seconds before initially destroying to make sure everything is initialized properly
+			const worldDestroyerInterval = setInterval(() => {
+				if (serv.isWorldInactive(gameWorld)) {
+					console.log('world is being destroyed!', serv.players.filter(p => p.isNpc && p.world === gameWorld).map(p => p.username))
+					serv.destroyWorld(gameWorld)
+					clearInterval(worldDestroyerInterval)
+				}
+			}, 1000)
+		}, 5000)
 	
 	}
-	
 	module.exports.brigadier = (dispatcher: CommandDispatcher<unknown>, serv, { literal }) => {
 		dispatcher.register(	
 			literal('pvp')
-				.requires(c => c.player.op)
 				.executes(c => {
 					const source: any = c.getSource()
 					doPvpMatch(source.player)
@@ -76,6 +76,4 @@ module.exports.server = (serv: MCServer) => {
 				})
 			)
 	}
-	
-	
 }

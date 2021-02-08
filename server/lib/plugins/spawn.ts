@@ -1,10 +1,8 @@
-const Entity = require('prismarine-entity')
-const path = require('path')
-const requireIndex = require('../requireindex')
-const plugins = requireIndex(path.join(__dirname, '..', 'plugins'))
-const UserError = require('../user_error')
-const UUID = require('uuid-1345')
-const Vec3 = require('vec3').Vec3
+import * as Entity from 'prismarine-entity/index'
+import plugins from '../plugins'
+import * as UserError from '../user_error'
+import * as UUID from 'uuid-1345'
+import { Vec3 } from 'vec3'
 
 function conv256(f) {
 	let b = Math.floor((f % 360) * 256 / 360)
@@ -21,6 +19,7 @@ module.exports.server = function (serv, options) {
 
   serv.initEntity = (type, entityType, world, position) => {
     serv.entityMaxId++
+    // @ts-expect-error
     const entity = new Entity(serv.entityMaxId)
 
     Object.keys(plugins)
