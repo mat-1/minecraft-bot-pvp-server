@@ -35,6 +35,10 @@ module.exports.player = function (player, serv, settings) {
         player.updateAndSpawn()
         player.alive = true
         console.log('player respawned, theyre alive now')
+        setTimeout(() => {
+          // sometimes the player isnt alive when theyre supposed to be
+          player.alive = true
+        }, 50)
       })
     }
   })

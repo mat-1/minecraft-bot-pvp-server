@@ -21,9 +21,9 @@ module.exports.player = function (player, serv, { worldFolder }) {
 	}
 
 	player._client.on('end', function logoutFunction() {
-		console.log('player logged out!', player.username)
 		if (player && player.username) {
-			serv.broadcast(serv.color.yellow + player.username + ' quit the game.')
+			if (!player.isNpc)
+				serv.broadcast(serv.color.yellow + player.username + ' left the game')
 			player._writeOthers('player_info', {
 				action: 4,
 				data: [{

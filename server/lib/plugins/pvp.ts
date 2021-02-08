@@ -87,7 +87,6 @@ module.exports.entity = (entity, serv: MCServer) => {
 		})
 
 		if (entity.health <= 0) {
-			console.log('entity ded lol')
 			entity.alive = false
 			entity._writeNearby('entity_status', {
 				entityId: entity.id,

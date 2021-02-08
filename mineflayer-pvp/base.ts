@@ -20,17 +20,17 @@ class RaycastIterator {
 
 	maxDistance: number
 
-	constructor(pos, dir, maxDistance) {	
+	constructor(pos, dir, maxDistance, precision=25) {	
 		this.initial = pos.clone()
 		this.pos = pos
 
-		this.stepX = dir.x
-		this.stepY = dir.y
-		this.stepZ = dir.z
+		this.stepX = dir.x / precision
+		this.stepY = dir.y / precision
+		this.stepZ = dir.z / precision
 	
-		this.tDeltaX = (dir.x === 0) ? Number.MAX_VALUE : Math.abs(1 / dir.x)
-		this.tDeltaY = (dir.y === 0) ? Number.MAX_VALUE : Math.abs(1 / dir.y)
-		this.tDeltaZ = (dir.z === 0) ? Number.MAX_VALUE : Math.abs(1 / dir.z)
+		this.tDeltaX = ((dir.x === 0) ? Number.MAX_VALUE : Math.abs(1 / dir.x)) / precision
+		this.tDeltaY = ((dir.y === 0) ? Number.MAX_VALUE : Math.abs(1 / dir.y)) / precision
+		this.tDeltaZ = ((dir.z === 0) ? Number.MAX_VALUE : Math.abs(1 / dir.z)) / precision
 	
 		this.tMaxX = (dir.x === 0) ? Number.MAX_VALUE : Math.abs((this.pos.x + (dir.x > 0 ? 1 : 0) - pos.x) / dir.x)
 		this.tMaxY = (dir.y === 0) ? Number.MAX_VALUE : Math.abs((this.pos.y + (dir.y > 0 ? 1 : 0) - pos.y) / dir.y)
@@ -87,13 +87,6 @@ export class LimitedBot {
 		// add 1 extra because vanilla reach is technically 4 blocks
 		const iter = new RaycastIterator(eyePosition, viewDirection, maxDistance)
 
-		iter.stepX /= 10
-		iter.stepY /= 10
-		iter.stepZ /= 10
-
-		iter.tDeltaX /= 10
-		iter.tDeltaY /= 10
-		iter.tDeltaZ /= 10
 		const entities = []
 		for (const entityId in this.bot.entities) {
 			const entity = this.bot.entities[entityId]

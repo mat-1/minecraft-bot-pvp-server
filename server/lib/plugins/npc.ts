@@ -31,6 +31,8 @@ class FakeClient extends require('events') {
 	writeChannel(protocolVersion: string, data: any) {}
 	end() {
 		this.write('end', null)
+		// we also have to emit it so mineflayer cleans up the events
+		this.emit('end', null)
 	}
 }
 
@@ -75,7 +77,7 @@ module.exports.server = (serv: MCServer, { version }) => {
 				registerChannel(protocolVersion: string, data: any) {},
 				writeChannel(protocolVersion: string, data: any) {},
 				end() {
-					bot._client.write('end', null)
+					bot._client.end(null)
 				}
 			}
 			bot._client.on('event', (type, ...args) => {
@@ -97,38 +99,43 @@ module.exports.server = (serv: MCServer, { version }) => {
 			})
 		})
 	}
+	// serv.commands.add({
+	// 	base: 'npc',
+	// 	info: 'Create an NPC',
+	// 	usage: '/npc',
+	// 	tab: [],
+	// 	op: true,
+	// 	parse(str) {
+	// 		return str.split(' ')
+	// 	},
+	// 	async action(args, ctx) {
+	// 		if (args.length >= 1 && args[0] === 'pvp') {
+	// 			const bot: any = await serv.createNPC({
+	// 				username: 'pvpNPC',
+	// 				world: ctx.player.world
+	// 			})
+	// 			PVPBot(bot)
+	// 			bot.pvp.start(ctx.player)
+	// 		} else {
+	// 			serv.createNPC({
+	// 				username: 'npc',
+	// 				world: ctx.player.world
+	// 			})
+	// 		}
+	// 	}
+	// })
+}
 
-	serv.commands.add({
-		base: 'npc',
-		info: 'Create an NPC',
-		usage: '/npc',
-		tab: [],
-		op: true,
-		parse(str) {
-			return str.split(' ')
-		},
-		async action(args, ctx) {
-			if (args.length >= 1 && args[0] === 'pvp') {
-				const bot: any = await serv.createNPC({
-					username: 'pvpNPC',
-					world: ctx.player.world
-				})
-				PVPBot(bot)
-				bot.pvp.start(ctx.player)
-			} else {
+module.exports.brigadier = (dispatcher, serv, { literal }) => {
+	dispatcher.register(	
+		literal('npc')
+			.executes(c => {
+				const source: any = c.getSource()
 				serv.createNPC({
 					username: 'npc',
-					world: ctx.player.world
+					world: source.player.world
 				})
-			}
-		}
-	})
-}
-
-module.exports.player = (player, serv) => {
-
-}
-
-module.exports.entity = function (entity, serv) {
-
+				return 0
+			})
+		)
 }

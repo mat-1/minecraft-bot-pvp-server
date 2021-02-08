@@ -16,6 +16,7 @@ import type { Chunk } from 'prismarine-chunk'
 import type { Block } from 'prismarine-block'
 import type World from 'prismarine-world'
 import type { Vec3 } from 'vec3'
+import type { CommandDispatcher } from 'node-brigadier'
 
 require('emit-then').register()
 if (process.env.NODE_ENV === 'dev') {
@@ -113,6 +114,9 @@ export class MCServer extends EventEmitter {
 
 	// entities (todo)
 	entities: any[]
+
+	// brigadier
+	brigadier: CommandDispatcher<unknown>
 
 	constructor () {
 		super()

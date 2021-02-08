@@ -2,15 +2,15 @@ const UserError = require('../user_error')
 const colors = require('colors')
 
 module.exports.player = function (player, serv, { version }) {
-  player.handleCommand = async (str) => {
-    try {
-      const res = await serv.commands.use(str, { player: player }, player.op)
-      if (res) player.chat(serv.color.red + res)
-    } catch (err) {
-      if (err.userError) player.chat(serv.color.red + 'Error: ' + err.message)
-      else setTimeout(() => { throw err }, 0)
-    }
-  }
+  // player.handleCommand = async (str) => {
+  //   try {
+  //     const res = await serv.commands.use(str, { player: player }, player.op)
+  //     if (res) player.chat(serv.color.red + res)
+  //   } catch (err) {
+  //     if (err.userError) player.chat(serv.color.red + 'Error: ' + err.message)
+  //     else setTimeout(() => { throw err }, 0)
+  //   }
+  // }
 }
 
 module.exports.entity = function (entity, serv) {

@@ -14,6 +14,8 @@ interface Title {
 }
 
 module.exports.player = function (player, serv) {
+	let hasTitleClearListener = false
+
 	player.title = ({ title, subtitle, actionBar, display }: Title) => {
 		if (display) {
 			player._client.write('title', {
@@ -39,5 +41,19 @@ module.exports.player = function (player, serv) {
 				action: 2,
 				text: JSON.stringify(actionBar)
 			})
+		if ((title || subtitle || actionBar) && !hasTitleClearListener) {
+			hasTitleClearListener = true
+			player.once('change_world', () => {
+				player._client.write('title', {
+					// hide the title when the player changes worlds
+					action: 4
+				})
+				hasTitleClearListener = false
+			})
+		}
+	}
+
+	player.actionBar = (text) => {
+		player.title({ actionBar: text })
 	}
 }
