@@ -64,9 +64,7 @@ module.exports.player = async function (player, serv) {
 		const oldSkinParts = player.skinParts
 		const newSkinParts = parseSkinParts(skinParts)
 		player.skinParts = newSkinParts
-		console.log('updateSkinParts', oldSkinParts, newSkinParts)
 		if (oldSkinParts !== newSkinParts) {
-			console.log('aight send skin part metadata')
 			player.sendMetadata([{
 				key: 16,
 				type: 0,

@@ -23,6 +23,11 @@ if (process.env.NODE_ENV === 'dev') {
 }
 
 import * as supportFeature from './lib/supportFeature'
+import type { CompleteWindowInterface as CompleteWindow, InventoryTypes } from './lib/plugins/windows'
+import type { ChatMessage } from './lib/plugins/chat'
+import type { Item } from 'prismarine-item'
+import type { Entity } from 'prismarine-entity'
+import type { Window } from 'prismarine-windows'
 
 export default function createMCServer(options={}): MCServer {
 	const mcServer = new MCServer()
@@ -50,6 +55,10 @@ declare module 'minecraft-protocol' {
 }
 
 class NMPServer extends require('minecraft-protocol').Server {
+
+}
+
+class NMPClient extends require('minecraft-protocol').Client {
 
 }
 
@@ -126,7 +135,7 @@ export class MCServer extends EventEmitter {
 	onItemPlace: (name: string, handler: (data: any) => any, warn?: boolean) => void
 	setBlockDataProperties: (baseData: number, states: any[], properties: any) => number
 	interactWithBlock: (data: InteractBlockData) => Promise<boolean>
-	onBlockInteraction: (name: string, handler: (data: InteractBlockData) => boolean) => void
+	onBlockInteraction: (name: string, handler: (data: InteractBlockData) => Promise<boolean>) => void
 
 	// blockEntities
 	putBlockEntity: (putBlockEntityOptions) => Promise<void>
@@ -137,11 +146,10 @@ export class MCServer extends EventEmitter {
 
 	// communication
 	_writeAll: (packetName: string, packetFields: any) => void
-	_writeArray: (packetName: string, packetFields: any, players: any[]) => void
+	_writeArray: (packetName: string, packetFields: any, players: MCPlayer[]) => void
 	_writeNearby: (packetName: string, packetFields: any, loc: Loc) => void
-	// TODO: make this entities[] instead of any[]
-	getNearby: ({ world, position, radius }: Loc) => any[]
-	getNearbyEntities: ({ world, position, radius }: Loc) => any[]
+	getNearby: ({ world, position, radius }: Loc) => MCPlayer[]
+	getNearbyEntities: ({ world, position, radius }: Loc) => (MCEntity | MCPlayer)[]
 
 	// entities (todo)
 	entities: any[]
@@ -151,6 +159,9 @@ export class MCServer extends EventEmitter {
 
 	// chat (todo)
 	color: Color
+
+	// windows
+	createWindow: (windowType: CompleteWindow, id: number, type: number | string, title: string, slotCount?: number, player?: MCPlayer) => any
 
 	constructor () {
 		super()
@@ -174,4 +185,48 @@ export class MCServer extends EventEmitter {
 		this._server.on('listening', () => this.emit('listening', this._server.socketServer.address().port))
 		this.emit('asap')
 	}
+}
+
+export interface MCEntity extends Entity {
+	world: World
+	viewDistance: number
+	id: number
+	gameMode: number
+
+	nearbyEntities: (MCEntity | MCPlayer)[]
+
+	// spawn (TODO)
+	destroy: () => void
+
+	// communication
+	getNearby: () => (MCEntity | MCPlayer)[]
+	getOtherPlayers: () => MCPlayer[]
+	getOthers: () => MCEntity[]
+	getNearbyPlayers: () => MCPlayer[]
+	nearbyPlayers: () => MCPlayer[]
+	_writeOthers: (packetName: string, packetFields: any) => void
+	_writeOthersNearby: (packetName: string, packetFields: any) => void
+	_writeNearby: (packetName: string, packetFields: any) => void
+
+	// sound (TODO)
+	playSoundAtSelf: (sound: string, opt?: any) => void
+}
+
+export interface MCPlayer extends MCEntity {
+	_client: NMPClient
+
+	// containers
+	openWindow: (inventoryType: InventoryTypes, name: ChatMessage | string, windowType?: CompleteWindow) => void
+
+	// inventory
+	heldItemSlot: number
+	heldItem: Item
+	inventory: Window
+	updateHeldItem: () => void
+	collect: (collectEntity: MCItemEntity) => void
+}
+
+export interface MCItemEntity extends MCEntity {
+	itemId: number
+	damage: number // does this actually exist? doesnt look like it
 }

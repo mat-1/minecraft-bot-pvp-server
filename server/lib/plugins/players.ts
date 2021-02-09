@@ -1,3 +1,5 @@
+import { CommandDispatcher, literal, LiteralCommandNode, Suggestions } from "node-brigadier"
+
 const UserError = require('../user_error')
 
 export const GAMEMODES = Object.freeze({
@@ -19,59 +21,6 @@ module.exports.server = function (serv, { version }) {
 		if (found.length > 0) { return found[0] }
 		return null
 	}
-
-	serv.commands.add({
-		base: 'gamemode',
-		aliases: ['gm'],
-		info: 'to change game mode',
-		usage: '/gamemode <mode> [player]',
-		op: true,
-		parse (str, ctx) {
-			const paramsSplit = str.split(' ')
-			if (paramsSplit[0] === '') {
-				return false
-			}
-			if (!paramsSplit[0].match(/^(survival|creative|adventure|spectator|[0-3])$/)) {
-				throw new UserError(`The gamemode you have entered (${paramsSplit[0]}) is not valid, it must be survival, creative, adventure, spectator, or a number from 0-3`)
-			}
-			if (!paramsSplit[1]) {
-				if (ctx.player) return paramsSplit[0].match(/^(survival|creative|adventure|spectator|[0-3])$/)
-				else throw new UserError('Console cannot set gamemode itself')
-			}
-
-			return str.match(/^(survival|creative|adventure|spectator|[0-3]) (\w+)$/) || false
-			// return params || false
-		},
-		action (str, ctx) {
-			const gamemodes = {
-				survival: 0,
-				creative: 1,
-				adventure: 2,
-				spectator: 3
-			}
-			const gamemodesReverse = Object.assign({}, ...Object.entries(gamemodes).map(([k, v]) => ({ [v]: k })))
-			const gamemode = parseInt(str[1], 10) || gamemodes[str[1]]
-			const mode = parseInt(str[1], 10) ? gamemodesReverse[parseInt(str[1], 10)] : str[1]
-			const plyr = serv.getPlayer(str[2])
-			if (ctx.player) {
-				if (str[2]) {
-					if (plyr !== null) {
-						plyr.setGameMode(gamemode)
-						return `Set ${str[2]}'s game mode to ${mode} Mode`
-					} else {
-						throw new UserError(`Player '${str[2]}' cannot be found`)
-					}
-				} else ctx.player.setGameMode(gamemode)
-			} else {
-				if (plyr !== null) {
-					plyr.setGameMode(gamemode)
-					return `Set ${str[2]}'s game mode to ${mode} Mode`
-				} else {
-					throw new UserError(`Player '${str[2]}' cannot be found`)
-				}
-			}
-		}
-	})
 
 	serv.commands.add({
 		base: 'difficulty',
@@ -127,4 +76,74 @@ module.exports.server = function (serv, { version }) {
 			}
 		}
 	})
+}
+
+module.exports.brigadier = (dispatcher: CommandDispatcher<unknown>, serv) => {
+	const literalArgumentBuilder = literal('gamemode')
+
+	for (const gamemode in GAMEMODES) {
+		literalArgumentBuilder.then(
+			literal(gamemode)
+				.requires((c: any) => c.player.op)
+				.executes(c => {
+					const source: any = c.getSource()
+					source.player.setGameMode(GAMEMODES[gamemode])
+					return 0
+				})
+		)
+	}
+	dispatcher.register(literalArgumentBuilder)
+	// serv.commands.add({
+	// 	base: 'gamemode',
+	// 	aliases: ['gm'],
+	// 	info: 'to change game mode',
+	// 	usage: '/gamemode <mode> [player]',
+	// 	op: true,
+	// 	parse (str, ctx) {
+	// 		const paramsSplit = str.split(' ')
+	// 		if (paramsSplit[0] === '') {
+	// 			return false
+	// 		}
+	// 		if (!paramsSplit[0].match(/^(survival|creative|adventure|spectator|[0-3])$/)) {
+	// 			throw new UserError(`The gamemode you have entered (${paramsSplit[0]}) is not valid, it must be survival, creative, adventure, spectator, or a number from 0-3`)
+	// 		}
+	// 		if (!paramsSplit[1]) {
+	// 			if (ctx.player) return paramsSplit[0].match(/^(survival|creative|adventure|spectator|[0-3])$/)
+	// 			else throw new UserError('Console cannot set gamemode itself')
+	// 		}
+
+	// 		return str.match(/^(survival|creative|adventure|spectator|[0-3]) (\w+)$/) || false
+	// 		// return params || false
+	// 	},
+	// 	action (str, ctx) {
+	// 		const gamemodes = {
+	// 			survival: 0,
+	// 			creative: 1,
+	// 			adventure: 2,
+	// 			spectator: 3
+	// 		}
+	// 		const gamemodesReverse = Object.assign({}, ...Object.entries(gamemodes).map(([k, v]) => ({ [v]: k })))
+	// 		const gamemode = parseInt(str[1], 10) || gamemodes[str[1]]
+	// 		const mode = parseInt(str[1], 10) ? gamemodesReverse[parseInt(str[1], 10)] : str[1]
+	// 		const plyr = serv.getPlayer(str[2])
+	// 		if (ctx.player) {
+	// 			if (str[2]) {
+	// 				if (plyr !== null) {
+	// 					plyr.setGameMode(gamemode)
+	// 					return `Set ${str[2]}'s game mode to ${mode} Mode`
+	// 				} else {
+	// 					throw new UserError(`Player '${str[2]}' cannot be found`)
+	// 				}
+	// 			} else ctx.player.setGameMode(gamemode)
+	// 		} else {
+	// 			if (plyr !== null) {
+	// 				plyr.setGameMode(gamemode)
+	// 				return `Set ${str[2]}'s game mode to ${mode} Mode`
+	// 			} else {
+	// 				throw new UserError(`Player '${str[2]}' cannot be found`)
+	// 			}
+	// 		}
+	// 	}
+	// })
+
 }

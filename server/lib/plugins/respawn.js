@@ -38,7 +38,7 @@ module.exports.player = function (player, serv, settings) {
         setTimeout(() => {
           // sometimes the player isnt alive when theyre supposed to be
           player.alive = true
-        }, 50)
+        }, 100)
       })
     }
   })

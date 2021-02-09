@@ -1,5 +1,5 @@
 import { Vec3 } from 'vec3'
-import type { MCServer } from '../..'
+import type { MCPlayer, MCServer } from '../..'
 import type { Item } from 'prismarine-item'
 import type { Block } from 'prismarine-block'
 import { GAMEMODES } from './players'
@@ -33,7 +33,7 @@ export interface PlaceItemData {
 
 export interface InteractBlockData {
 	block: Block
-	player: any
+	player: MCPlayer
 }
 
 module.exports.server = (serv: MCServer, { version }) => {
@@ -61,56 +61,56 @@ module.exports.server = (serv: MCServer, { version }) => {
 	itemPlaceHandlers.set(item.id, handler)
   }
 
-  if (serv.supportFeature('theFlattening')) {
-	const parseValue = (value, state) => {
-	  if (state.type === 'enum') {
-		return state.values.indexOf(value)
-	  }
-	  if (state.type === 'bool') {
-		return value ? 0 : 1
-	  }
-	  return parseInt(value, 10)
-	}
-
-	serv.setBlockDataProperties = (baseData: number, states: any[], properties: any) => {
-	  let data = 0
-	  let offset = 1
-	  for (let i = states.length - 1; i >= 0; i--) {
-		const prop = states[i]
-		let value = baseData % prop.num_values
-		baseData = Math.floor(baseData / prop.num_values)
-		if (properties[prop.name]) {
-		  value = parseValue(properties[prop.name], prop)
+	if (serv.supportFeature('theFlattening')) {
+		const parseValue = (value, state) => {
+		if (state.type === 'enum') {
+			return state.values.indexOf(value)
 		}
-		data += offset * value
-		offset *= prop.num_values
-	  }
-	  return data
-	}
-
-	// Register default handlers for item -> block conversion
-	for (const name of Object.keys(mcData.itemsByName)) {
-	  const block = mcData.blocksByName[name]
-	  if (block) {
-		if (block.states.length > 0) {
-		  serv.onItemPlace(name, ({ properties }) => {
-			const data = block.defaultState - block.minStateId
-			return { id: block.id, data: serv.setBlockDataProperties(data, block.states, properties) }
-		  })
-		} else {
-		  serv.onItemPlace(name, () => {
-			return { id: block.id, data: 0 }
-		  })
+		if (state.type === 'bool') {
+			return value ? 0 : 1
 		}
-	  }
-	}
-  }
+		return parseInt(value, 10)
+		}
 
-  const blockInteractHandler: Map<number, (data: InteractBlockData) => boolean> = new Map()
-  serv.interactWithBlock = async(data: InteractBlockData) => {
-	const handler = blockInteractHandler.get(data.block.type)
-	return handler ? handler(data) : false
-  }
+		serv.setBlockDataProperties = (baseData: number, states: any[], properties: any) => {
+			let data = 0
+			let offset = 1
+			for (let i = states.length - 1; i >= 0; i--) {
+				const prop = states[i]
+				let value = baseData % prop.num_values
+				baseData = Math.floor(baseData / prop.num_values)
+				if (properties[prop.name]) {
+					value = parseValue(properties[prop.name], prop)
+				}
+				data += offset * value
+				offset *= prop.num_values
+			}
+			return data
+		}
+
+		// Register default handlers for item -> block conversion
+		for (const name of Object.keys(mcData.itemsByName)) {
+			const block = mcData.blocksByName[name]
+			if (block) {
+				if (block.states.length > 0) {
+					serv.onItemPlace(name, ({ properties }) => {
+						const data = block.defaultState - block.minStateId
+						return { id: block.id, data: serv.setBlockDataProperties(data, block.states, properties) }
+					})
+				} else {
+					serv.onItemPlace(name, () => {
+						return { id: block.id, data: 0 }
+					})
+				}
+			}
+		}
+	}
+
+	const blockInteractHandler: Map<string, (data: InteractBlockData) => Promise<boolean>> = new Map()
+	serv.interactWithBlock = async(data: InteractBlockData) => {
+		const handler = blockInteractHandler.get(data.block.name)
+		return handler ? await handler(data) : false
+	}
 
   /**
    * The handler is called when a player interact with a block
@@ -118,12 +118,11 @@ module.exports.server = (serv: MCServer, { version }) => {
    * It should return true if the block placement should be
    * cancelled.
    */
-  serv.onBlockInteraction = (name: string, handler: (data: InteractBlockData) => boolean) => {
-	const block = mcData.blocksByName[name]
-	if (blockInteractHandler.has(block.id)) {
-	  serv.log(`[Warning] onBlockInteraction handler was registered twice for ${name}`)
-	}
-	blockInteractHandler.set(block.id, handler)
+  serv.onBlockInteraction = (name: string, handler: (data: InteractBlockData) => Promise<boolean>) => {
+		if (blockInteractHandler.has(name)) {
+			serv.log(`[Warning] onBlockInteraction handler was registered twice for ${name}`)
+		}
+		blockInteractHandler.set(name, handler)
   }
 }
 

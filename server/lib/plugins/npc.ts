@@ -5,7 +5,7 @@ import type { MCServer } from '../..'
 import { v4 as uuidv4 } from 'uuid'
 import World from 'prismarine-world'
 import { Vec3 } from 'vec3'
-import { CommandDispatcher } from 'node-brigadier'
+import { CommandDispatcher, literal } from 'node-brigadier'
  
 export interface NpcOptions {
 	username: string,
@@ -105,10 +105,10 @@ module.exports.server = (serv: MCServer, { version }) => {
 	}
 }
 
-module.exports.brigadier = (dispatcher: CommandDispatcher<unknown>, serv, { literal }) => {
+module.exports.brigadier = (dispatcher: CommandDispatcher<unknown>, serv) => {
 	dispatcher.register(	
 		literal('npc')
-			.requires(c => c.player.op)
+			.requires((c: any) => c.player.op)
 			.executes(c => {
 				const source: any = c.getSource()
 				serv.createNPC({
@@ -119,14 +119,16 @@ module.exports.brigadier = (dispatcher: CommandDispatcher<unknown>, serv, { lite
 			})
 			.then(
 				literal('pvp')
-					.executes(async c => {
+					.executes((c: any) => {
 						const source: any = c.getSource()
-						const bot: any = await serv.createNPC({
-							username: 'npc',
-							world: source.player.world
-						})
-						PVPBot(bot)
-						bot.pvp.start(source.player)
+						(async() => {
+							const bot: any = await serv.createNPC({
+								username: 'npc',
+								world: source.player.world
+							})
+							PVPBot(bot)
+							bot.pvp.start(source.player)	
+						})()
 						return 0
 					})
 			)

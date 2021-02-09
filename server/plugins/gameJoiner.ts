@@ -3,7 +3,7 @@ import * as WorldConstructor from 'prismarine-world'
 import { Anvil as AnvilConstructor } from 'prismarine-provider-anvil'
 import PVPBot from '../../mineflayer-pvp'
 import type { MCServer } from '../'
-import { CommandDispatcher } from 'node-brigadier'
+import { CommandDispatcher, literal } from 'node-brigadier'
 
 const arenaWorlds = ['arena1', 'arena2', 'arena3']
 
@@ -66,7 +66,7 @@ module.exports.server = (serv: MCServer) => {
 		}, 5000)
 	
 	}
-	module.exports.brigadier = (dispatcher: CommandDispatcher<unknown>, serv, { literal }) => {
+	module.exports.brigadier = (dispatcher: CommandDispatcher<unknown>, serv: MCServer) => {
 		dispatcher.register(	
 			literal('pvp')
 				.executes(c => {
@@ -75,5 +75,24 @@ module.exports.server = (serv: MCServer) => {
 					return 0
 				})
 			)
+
+		dispatcher.register(	
+			literal('hub')
+				.executes(c => {
+					const source: any = c.getSource()
+					if (source.player.world !== serv.hub) {
+						source.player.chat(serv.color.italic + serv.color.green + 'You are now at the hub')
+						source.player.changeWorld(
+							serv.hub,
+							{
+								spawnpoint: new Vec3(0.5, 80, 0.5)
+							}
+						)	
+					}
+					return 0
+				})
+			)
+		
+
 	}
 }
