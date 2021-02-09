@@ -103,7 +103,7 @@ function makePingResponse(response, client, answerToPing) {
 const serv = createMCServer({
 	'port': 25565,
 	'max-players': 1000,
-	'online-mode': true,
+	'online-mode': process.env.replit === 'true' ? true : false,
 	'logging': true,
 	'gameMode': 2,
 	'difficulty': 1,
@@ -121,7 +121,7 @@ const serv = createMCServer({
 	  'header': {'text': ''},
 	  'footer': {'text': ''}
 	},
-	'everybody-op': false,
+	'everybody-op': process.env.replit === 'true' ? false : true,
 	'version': '1.16.4',
 	beforePing: makePingResponse
 })
