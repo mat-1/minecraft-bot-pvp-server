@@ -46,6 +46,7 @@ module.exports.server = (serv: MCServer, { version }) => {
 
 			const bot = createBot({
 				username: options.username,
+				// @ts-ignore-error
 				client: client,
 				version: version
 			})

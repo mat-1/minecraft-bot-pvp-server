@@ -91,6 +91,7 @@ export class LimitedBot {
 		for (const entityId in this.bot.entities) {
 			const entity = this.bot.entities[entityId]
 			if (entity.type === null) return null
+			// @ts-ignore-error
 			const entityData = this.bot.mcdata.entitiesByName[entity.type]
 			// @ts-expect-error for some reason they didnt put id in the typings for prismarine-entity
 			if (this.bot.entity.id === entity.id) continue

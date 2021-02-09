@@ -32,7 +32,7 @@ async function tick(bot: LimitedBot, opponent: Entity, config: PvpConfig) {
 }
 
 
-export default function plugin(bot: Bot) {
+export default function plugin(bot: any) {
 	const limitedBot = new LimitedBot(bot)
 	
 	bot.pvp = {}

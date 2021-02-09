@@ -13,13 +13,6 @@
   "bin": {
     "flying-squid": "app.js"
   },
-  "scripts": {
-    "prepublishOnly": "cp docs/README.md README.md",
-    "lint": "standard test/*.test.js src/**/*.js src/**/**/*.js src/*.js examples/*.js *.js",
-    "fix": "standard --fix test/*.test.js src/**/*.js src/**/**/*.js src/*.js examples/*.js *.js",
-    "test": "jest --config jest.config.js --verbose --runInBand",
-    "pretest": "npm run lint"
-  },
   "keywords": [],
   "license": "MIT",
   "engines": {
@@ -66,10 +59,6 @@
   },
   "devDependencies": {
     "flying-squid": "file:.",
-    "jest": "^26.0.1",
-    "longjohn": "^0.2.12",
-    "minecraft-wrap": "^1.2.3",
-    "mineflayer": "file:mineflayer-serverside",
-    "standard": "^16.0.1"
+    "mineflayer": "file:mineflayer-serverside"
   }
 }
