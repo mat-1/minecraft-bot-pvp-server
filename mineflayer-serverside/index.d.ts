@@ -20,7 +20,7 @@ import { Entity } from "prismarine-entity";
 import type { IndexedData } from "minecraft-data";
 import type { BotPvp } from "../mineflayer-pvp"
 
-export function createBot(options: FakeClient): Bot;
+export function createBot(options: BotOptions): Bot;
 
 export interface BotOptions extends ClientOptions {
   logErrors?: boolean;

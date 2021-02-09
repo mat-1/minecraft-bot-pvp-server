@@ -1,0 +1,791 @@
+{
+	"area_effect_cloud": [
+		"area_effect_cloud",
+		"~abstract_entity"
+	],
+	"armor_stand": [
+		"armor_stand",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"arrow": [
+		"arrow",
+		"~abstract_entity"
+	],
+	"bat": [
+		"bat",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"bee": [
+		"bee",
+		"~abstract_animal",
+		"~abstract_ageable",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"blaze": [
+		"blaze",
+		"~abstract_monster",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"boat": [
+		"boat",
+		"~abstract_entity"
+	],
+	"cat": [
+		"cat",
+		"~abstract_tameable",
+		"~abstract_animal",
+		"~abstract_ageable",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"cave_spider": [
+		"cave_spider",
+		"spider",
+		"~abstract_monster",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"chest_minecart": [
+		"chest_minecart",
+		"~abstract_minecart",
+		"~abstract_entity"
+	],
+	"chicken": [
+		"chicken",
+		"~abstract_animal",
+		"~abstract_ageable",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"cod": [
+		"cod",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"command_block_minecart": [
+		"command_block_minecart",
+		"~abstract_minecart",
+		"~abstract_entity"
+	],
+	"cow": [
+		"cow",
+		"~abstract_animal",
+		"~abstract_ageable",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"creeper": [
+		"creeper",
+		"~abstract_monster",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"dolphin": [
+		"dolphin",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"donkey": [
+		"donkey",
+		"~abstract_animal",
+		"~abstract_ageable",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"dragon_fireball": [
+		"dragon_fireball",
+		"~abstract_entity"
+	],
+	"drowned": [
+		"drowned",
+		"zombie",
+		"~abstract_monster",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"egg": [
+		"egg",
+		"~abstract_entity"
+	],
+	"elder_guardian": [
+		"elder_guardian",
+		"guardian",
+		"~abstract_monster",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"end_crystal": [
+		"end_crystal",
+		"~abstract_entity"
+	],
+	"ender_dragon": [
+		"ender_dragon",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"ender_pearl": [
+		"ender_pearl",
+		"~abstract_entity"
+	],
+	"enderman": [
+		"enderman",
+		"~abstract_monster",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"endermite": [
+		"endermite",
+		"~abstract_monster",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"evoker": [
+		"evoker",
+		"~abstract_monster",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"evoker_fangs": [
+		"evoker_fangs",
+		"~abstract_entity"
+	],
+	"experience_bottle": [
+		"experience_bottle",
+		"~abstract_entity"
+	],
+	"experience_orb": [
+		"experience_orb",
+		"~abstract_entity"
+	],
+	"eye_of_ender": [
+		"eye_of_ender",
+		"~abstract_entity"
+	],
+	"falling_block": [
+		"falling_block",
+		"~abstract_entity"
+	],
+	"fireball": [
+		"fireball",
+		"~abstract_entity"
+	],
+	"firework_rocket": [
+		"firework_rocket",
+		"~abstract_entity"
+	],
+	"fishing_bobber": [
+		"fishing_bobber",
+		"~abstract_entity"
+	],
+	"fox": [
+		"fox",
+		"~abstract_animal",
+		"~abstract_ageable",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"furnace_minecart": [
+		"furnace_minecart",
+		"~abstract_minecart",
+		"~abstract_entity"
+	],
+	"ghast": [
+		"ghast",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"giant": [
+		"giant",
+		"~abstract_monster",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"guardian": [
+		"guardian",
+		"~abstract_monster",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"hoglin": [
+		"hoglin",
+		"~abstract_animal",
+		"~abstract_ageable",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"hopper_minecart": [
+		"hopper_minecart",
+		"~abstract_minecart",
+		"~abstract_entity"
+	],
+	"horse": [
+		"horse",
+		"~abstract_animal",
+		"~abstract_ageable",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"husk": [
+		"husk",
+		"zombie",
+		"~abstract_monster",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"illusioner": [
+		"illusioner",
+		"~abstract_monster",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"iron_golem": [
+		"iron_golem",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"item": [
+		"item",
+		"~abstract_entity"
+	],
+	"item_frame": [
+		"item_frame",
+		"~abstract_entity"
+	],
+	"leash_knot": [
+		"leash_knot",
+		"~abstract_entity"
+	],
+	"lightning_bolt": [
+		"lightning_bolt",
+		"~abstract_entity"
+	],
+	"llama": [
+		"llama",
+		"~abstract_animal",
+		"~abstract_ageable",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"llama_spit": [
+		"llama_spit",
+		"~abstract_entity"
+	],
+	"magma_cube": [
+		"magma_cube",
+		"slime",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"minecart": [
+		"minecart",
+		"~abstract_minecart",
+		"~abstract_entity"
+	],
+	"mooshroom": [
+		"mooshroom",
+		"cow",
+		"~abstract_animal",
+		"~abstract_ageable",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"mule": [
+		"mule",
+		"~abstract_animal",
+		"~abstract_ageable",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"ocelot": [
+		"ocelot",
+		"~abstract_animal",
+		"~abstract_ageable",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"painting": [
+		"painting",
+		"~abstract_entity"
+	],
+	"panda": [
+		"panda",
+		"~abstract_animal",
+		"~abstract_ageable",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"parrot": [
+		"parrot",
+		"~abstract_tameable",
+		"~abstract_animal",
+		"~abstract_ageable",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"phantom": [
+		"phantom",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"pig": [
+		"pig",
+		"~abstract_animal",
+		"~abstract_ageable",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"piglin": [
+		"piglin",
+		"~abstract_monster",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"piglin_brute": [
+		"piglin_brute",
+		"~abstract_monster",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"pillager": [
+		"pillager",
+		"~abstract_monster",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"player": [
+		"player",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"polar_bear": [
+		"polar_bear",
+		"~abstract_animal",
+		"~abstract_ageable",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"potion": [
+		"potion",
+		"~abstract_entity"
+	],
+	"pufferfish": [
+		"pufferfish",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"rabbit": [
+		"rabbit",
+		"~abstract_animal",
+		"~abstract_ageable",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"ravager": [
+		"ravager",
+		"~abstract_monster",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"salmon": [
+		"salmon",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"sheep": [
+		"sheep",
+		"~abstract_animal",
+		"~abstract_ageable",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"shulker": [
+		"shulker",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"shulker_bullet": [
+		"shulker_bullet",
+		"~abstract_entity"
+	],
+	"silverfish": [
+		"silverfish",
+		"~abstract_monster",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"skeleton": [
+		"skeleton",
+		"~abstract_monster",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"skeleton_horse": [
+		"skeleton_horse",
+		"~abstract_animal",
+		"~abstract_ageable",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"slime": [
+		"slime",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"small_fireball": [
+		"small_fireball",
+		"~abstract_entity"
+	],
+	"snow_golem": [
+		"snow_golem",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"snowball": [
+		"snowball",
+		"~abstract_entity"
+	],
+	"spawner_minecart": [
+		"spawner_minecart",
+		"~abstract_minecart",
+		"~abstract_entity"
+	],
+	"spectral_arrow": [
+		"spectral_arrow",
+		"~abstract_entity"
+	],
+	"spider": [
+		"spider",
+		"~abstract_monster",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"squid": [
+		"squid",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"stray": [
+		"stray",
+		"~abstract_monster",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"strider": [
+		"strider",
+		"~abstract_animal",
+		"~abstract_ageable",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"tnt": [
+		"tnt",
+		"~abstract_entity"
+	],
+	"tnt_minecart": [
+		"tnt_minecart",
+		"~abstract_minecart",
+		"~abstract_entity"
+	],
+	"trader_llama": [
+		"trader_llama",
+		"llama",
+		"~abstract_animal",
+		"~abstract_ageable",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"trident": [
+		"trident",
+		"~abstract_entity"
+	],
+	"tropical_fish": [
+		"tropical_fish",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"turtle": [
+		"turtle",
+		"~abstract_animal",
+		"~abstract_ageable",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"vex": [
+		"vex",
+		"~abstract_monster",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"villager": [
+		"villager",
+		"~abstract_ageable",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"vindicator": [
+		"vindicator",
+		"~abstract_monster",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"wandering_trader": [
+		"wandering_trader",
+		"~abstract_ageable",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"witch": [
+		"witch",
+		"~abstract_monster",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"wither": [
+		"wither",
+		"~abstract_monster",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"wither_skeleton": [
+		"wither_skeleton",
+		"~abstract_monster",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"wither_skull": [
+		"wither_skull",
+		"~abstract_entity"
+	],
+	"wolf": [
+		"wolf",
+		"~abstract_tameable",
+		"~abstract_animal",
+		"~abstract_ageable",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"zoglin": [
+		"zoglin",
+		"~abstract_monster",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"zombie": [
+		"zombie",
+		"~abstract_monster",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"zombie_horse": [
+		"zombie_horse",
+		"~abstract_animal",
+		"~abstract_ageable",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"zombie_villager": [
+		"zombie_villager",
+		"zombie",
+		"~abstract_monster",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"zombified_piglin": [
+		"zombified_piglin",
+		"zombie",
+		"~abstract_monster",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"~abstract_ageable": [
+		"~abstract_ageable",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"~abstract_animal": [
+		"~abstract_animal",
+		"~abstract_ageable",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"~abstract_creature": [
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"~abstract_entity": [
+		"~abstract_entity"
+	],
+	"~abstract_insentient": [
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"~abstract_living": [
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"~abstract_minecart": [
+		"~abstract_minecart",
+		"~abstract_entity"
+	],
+	"~abstract_monster": [
+		"~abstract_monster",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	],
+	"~abstract_tameable": [
+		"~abstract_tameable",
+		"~abstract_animal",
+		"~abstract_ageable",
+		"~abstract_creature",
+		"~abstract_insentient",
+		"~abstract_living",
+		"~abstract_entity"
+	]
+}

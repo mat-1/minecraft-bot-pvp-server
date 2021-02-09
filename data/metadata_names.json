@@ -1,0 +1,54 @@
+// this has to be written manually :)
+{
+	"~abstract_entity": {
+		"0": {
+			"0x1": "onFire",
+			"0x2": "crouching",
+			"0x4": "unused",
+			"0x8": "sprinting",
+			"0x10": "swimming",
+			"0x20": "invisible",
+			"0x40": "glowing",
+			"0x80": "flying"
+		},
+		"1": "airTicks",
+		"2": "name",
+		"3": "nameVisible",
+		"4": "silent",
+		"5": "noGravity",
+		"6": "pose"
+	},
+	"~abstract_living": {
+		"7": {
+			"0x1": "handActive",
+			"0x2": "activeHand",
+			"0x4": "riptideSpin"
+		},
+		"8": "health",
+		"9": "potionEffectColor",
+		"10": "potionAmbient",
+		"11": "arrowCount",
+		"12": "absorptionAmount",
+		"13": "sleepingBedLocation"
+	},
+	"player": {
+		"14": "additionalHearts",
+		"15": "score",
+		"16": {
+			"0x1": "showCape",
+			"0x2": "showJacket",
+			"0x4": "showLeftSleeve",
+			"0x8": "showRightSleeve",
+			"0x10": "showLeftPants",
+			"0x20": "showRightPants",
+			"0x40": "showHat",
+			"0x80": "unused"
+		},
+		"17": "mainHand",
+		"18": "leftShoulder",
+		"19": "rightShoulder"
+	},
+	"item": {
+		"7": "item"
+	}
+}

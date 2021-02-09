@@ -18,9 +18,6 @@ import type { Vec3 } from 'vec3'
 import type { CommandDispatcher } from 'node-brigadier'
 
 require('emit-then').register()
-if (process.env.NODE_ENV === 'dev') {
-	require('longjohn')
-}
 
 import * as supportFeature from './lib/supportFeature'
 import type { CompleteWindowInterface as CompleteWindow, InventoryTypes } from './lib/plugins/windows'
@@ -28,6 +25,7 @@ import type { ChatMessage } from './lib/plugins/chat'
 import type { Item } from 'prismarine-item'
 import type { Entity } from 'prismarine-entity'
 import type { Window } from 'prismarine-windows'
+import { MetadataPacket } from './lib/plugins/entities'
 
 export default function createMCServer(options={}): MCServer {
 	const mcServer = new MCServer()
@@ -106,6 +104,9 @@ export class MCServer extends EventEmitter {
 	players: any[]
 	hub: World
 	gameServers: World[]
+
+	// settings
+	gameMode: number
 
 	// tick
 	tickCount: number
@@ -210,6 +211,15 @@ export interface MCEntity extends Entity {
 
 	// sound (TODO)
 	playSoundAtSelf: (sound: string, opt?: any) => void
+
+	// entities
+	metadata: any
+	createMetadataPacket: (metadata: any) => MetadataPacket[]
+	sendMetadata: (metadata: any, targetPlayer?: MCPlayer) => void
+	setAndUpdateMetadata: (metadata: any, targetPlayer?: MCPlayer) => void
+
+	// settings
+	view: number
 }
 
 export interface MCPlayer extends MCEntity {
@@ -218,12 +228,19 @@ export interface MCPlayer extends MCEntity {
 	// containers
 	openWindow: (inventoryType: InventoryTypes, name: ChatMessage | string, windowType?: CompleteWindow) => void
 
+	// settings
+	prevGameMode: number
+	findSpawnPoint: () => Promise<typeof Vec3 | void>
+	spawnPoint: Vec3
+	forceSpawnPoint: typeof Vec3 | void
+
 	// inventory
 	heldItemSlot: number
 	heldItem: Item
 	inventory: Window
 	updateHeldItem: () => void
 	collect: (collectEntity: MCItemEntity) => void
+	sendMetadataFrom: (otherEntity: MCEntity | MCPlayer) => void
 }
 
 export interface MCItemEntity extends MCEntity {

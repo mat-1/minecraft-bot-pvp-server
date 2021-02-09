@@ -1,27 +1,38 @@
 {
-  "_from": "prismarine-provider-anvil@2.3.1",
-  "_id": "prismarine-provider-anvil@2.3.1",
+  "_args": [
+    [
+      "prismarine-provider-anvil@file:https:\\registry.npmjs.org\\prismarine-provider-anvil\\-\\prismarine-provider-anvil-2.3.1.tgz",
+      "C:\\Users\\matis\\Documents\\bot-pvp-server"
+    ]
+  ],
+  "_from": "prismarine-provider-anvil@file:https:/registry.npmjs.org/prismarine-provider-anvil/-/prismarine-provider-anvil-2.3.1.tgz",
+  "_id": "prismarine-provider-anvil@file:https:/registry.npmjs.org/prismarine-provider-anvil/-/prismarine-provider-anvil-2.3.1.tgz",
   "_inBundle": false,
   "_integrity": "sha512-Swfxy1mdoZ4ctRX1Rz7ajIU/CsEe+Fe7LD+0FOEg4bizcrzmQBY60F3JSMixew9cQRqdPAlCq3WYLzjqFQIP7A==",
-  "_location": "/prismarine-provider-anvil",
-  "_phantomChildren": {},
+  "_location": "/flying-squid/prismarine-provider-anvil",
+  "_phantomChildren": {
+    "minecraft-data": "2.74.0",
+    "prismarine-block": "1.7.3",
+    "smart-buffer": "4.1.0",
+    "uint4": "0.1.2",
+    "vec3": "0.1.7"
+  },
   "_requested": {
-    "type": "version",
-    "registry": true,
-    "raw": "prismarine-provider-anvil@2.3.1",
+    "type": "file",
+    "where": "C:\\Users\\matis\\Documents\\bot-pvp-server",
+    "raw": "prismarine-provider-anvil@file:https:/registry.npmjs.org/prismarine-provider-anvil/-/prismarine-provider-anvil-2.3.1.tgz",
     "name": "prismarine-provider-anvil",
     "escapedName": "prismarine-provider-anvil",
-    "rawSpec": "2.3.1",
-    "saveSpec": null,
-    "fetchSpec": "2.3.1"
+    "rawSpec": "file:https:/registry.npmjs.org/prismarine-provider-anvil/-/prismarine-provider-anvil-2.3.1.tgz",
+    "saveSpec": "file:https:\\registry.npmjs.org\\prismarine-provider-anvil\\-\\prismarine-provider-anvil-2.3.1.tgz",
+    "fetchSpec": "C:\\Users\\matis\\Documents\\bot-pvp-server\\https:\\registry.npmjs.org\\prismarine-provider-anvil\\-\\prismarine-provider-anvil-2.3.1.tgz"
   },
   "_requiredBy": [
-    "#USER",
-    "/"
+    "/flying-squid"
   ],
-  "_resolved": "https://registry.npmjs.org/prismarine-provider-anvil/-/prismarine-provider-anvil-2.3.1.tgz",
+  "_resolved": false,
   "_shasum": "360c64ad15e24433145c3eb96643e39e0602c8a2",
-  "_spec": "prismarine-provider-anvil@2.3.1",
+  "_spec": "file:https:/registry.npmjs.org/prismarine-provider-anvil/-/prismarine-provider-anvil-2.3.1.tgz",
   "_where": "C:\\Users\\matis\\Documents\\bot-pvp-server",
   "author": {
     "name": "Romain Beaumont",
@@ -30,7 +41,6 @@
   "bugs": {
     "url": "https://github.com/PrismarineJS/prismarine-provider-anvil/issues"
   },
-  "bundleDependencies": false,
   "dependencies": {
     "prismarine-chunk": "^1.20.1",
     "prismarine-nbt": "^1.3.0",

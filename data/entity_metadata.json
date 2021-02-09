@@ -1,0 +1,987 @@
+{
+	"area_effect_cloud": [
+		{
+			"key": 7,
+			"type": 2
+		},
+		{
+			"key": 8,
+			"type": 1
+		},
+		{
+			"key": 9,
+			"type": 7
+		},
+		{
+			"key": 10,
+		}
+	],
+	"armor_stand": [
+		{
+			"key": 14,
+			"type": 0
+		},
+		{
+			"key": 15,
+			"type": 8
+		},
+		{
+			"key": 16,
+			"type": 8
+		},
+		{
+			"key": 17,
+			"type": 8
+		},
+		{
+			"key": 18,
+			"type": 8
+		},
+		{
+			"key": 19,
+			"type": 8
+		},
+		{
+			"key": 20,
+			"type": 8
+		}
+	],
+	"arrow": [
+		{
+			"key": 7,
+			"type": 0
+		},
+		{
+			"key": 8,
+			"type": 0
+		},
+		{
+			"key": 9,
+			"type": 1
+		}
+	],
+	"bat": [
+		{
+			"key": 15,
+			"type": 0
+		}
+	],
+	"bee": [
+		{
+			"key": 16,
+			"type": 0
+		},
+		{
+			"key": 17,
+			"type": 1
+		}
+	],
+	"blaze": [
+		{
+			"key": 15,
+			"type": 0
+		}
+	],
+	"boat": [
+		{
+			"key": 7,
+			"type": 1
+		},
+		{
+			"key": 8,
+			"type": 1
+		},
+		{
+			"key": 9,
+			"type": 2
+		},
+		{
+			"key": 10,
+			"type": 1
+		},
+		{
+			"key": 11,
+			"type": 7
+		},
+		{
+			"key": 12,
+			"type": 7
+		},
+		{
+			"key": 13,
+			"type": 1
+		}
+	],
+	"cat": [
+		{
+			"key": 18,
+			"type": 1
+		},
+		{
+			"key": 19,
+			"type": 7
+		},
+		{
+			"key": 20,
+			"type": 7
+		},
+		{
+			"key": 21,
+			"type": 1
+		}
+	],
+	"cave_spider": [],
+	"chest_minecart": [],
+	"chicken": [],
+	"cod": [
+		{
+			"key": 15,
+			"type": 7
+		}
+	],
+	"command_block_minecart": [
+		{
+			"key": 13,
+			"type": 3
+		},
+		{
+			"key": 14,
+			"type": 4
+		}
+	],
+	"cow": [],
+	"creeper": [
+		{
+			"key": 15,
+			"type": 1
+		},
+		{
+			"key": 16,
+			"type": 7
+		},
+		{
+			"key": 17,
+			"type": 7
+		}
+	],
+	"dolphin": [
+		{
+			"key": 15,
+			"type": 9
+		},
+		{
+			"key": 16,
+			"type": 7
+		},
+		{
+			"key": 17,
+			"type": 1
+		}
+	],
+	"donkey": [
+		{
+			"key": 16,
+			"type": 0
+		},
+		{
+			"key": 17,
+			"type": 12
+		},
+		{
+			"key": 18,
+			"type": 7
+		}
+	],
+	"dragon_fireball": [],
+	"drowned": [],
+	"egg": [
+		{
+			"key": 7,
+			"type": 6
+		}
+	],
+	"elder_guardian": [],
+	"end_crystal": [
+		{
+			"key": 7,
+			"type": 10
+		},
+		{
+			"key": 8,
+			"type": 7
+		}
+	],
+	"ender_dragon": [
+		{
+			"key": 15,
+			"type": 1
+		}
+	],
+	"ender_pearl": [
+		{
+			"key": 7,
+			"type": 6
+		}
+	],
+	"enderman": [
+		{
+			"key": 15,
+			"type": 13
+		},
+		{
+			"key": 16,
+			"type": 7
+		},
+		{
+			"key": 17,
+			"type": 7
+		}
+	],
+	"endermite": [],
+	"evoker": [
+		{
+			"key": 15,
+			"type": 7
+		},
+		{
+			"key": 16,
+			"type": 0
+		}
+	],
+	"evoker_fangs": [],
+	"experience_bottle": [
+		{
+			"key": 7,
+			"type": 6
+		}
+	],
+	"experience_orb": [],
+	"eye_of_ender": [
+		{
+			"key": 7,
+			"type": 6
+		}
+	],
+	"falling_block": [
+		{
+			"key": 7,
+			"type": 9
+		}
+	],
+	"fireball": [
+		{
+			"key": 7,
+			"type": 6
+		}
+	],
+	"firework_rocket": [
+		{
+			"key": 7,
+			"type": 6
+		},
+		{
+			"key": 8,
+			"type": 17
+		},
+		{
+			"key": 9,
+			"type": 7
+		}
+	],
+	"fishing_bobber": [
+		{
+			"key": 7,
+			"type": 1
+		},
+		{
+			"key": 8,
+			"type": 7
+		}
+	],
+	"fox": [
+		{
+			"key": 16,
+			"type": 1
+		},
+		{
+			"key": 17,
+			"type": 0
+		},
+		{
+			"key": 18,
+			"type": 12
+		},
+		{
+			"key": 19,
+			"type": 12
+		}
+	],
+	"furnace_minecart": [
+		{
+			"key": 13,
+			"type": 7
+		}
+	],
+	"ghast": [
+		{
+			"key": 15,
+			"type": 7
+		}
+	],
+	"giant": [],
+	"guardian": [
+		{
+			"key": 15,
+			"type": 7
+		},
+		{
+			"key": 16,
+			"type": 1
+		}
+	],
+	"hoglin": [
+		{
+			"key": 16,
+			"type": 7
+		}
+	],
+	"hopper_minecart": [],
+	"horse": [
+		{
+			"key": 16,
+			"type": 0
+		},
+		{
+			"key": 17,
+			"type": 12
+		},
+		{
+			"key": 18,
+			"type": 1
+		}
+	],
+	"husk": [],
+	"illusioner": [
+		{
+			"key": 15,
+			"type": 7
+		},
+		{
+			"key": 16,
+			"type": 0
+		}
+	],
+	"iron_golem": [
+		{
+			"key": 15,
+			"type": 0
+		}
+	],
+	"item": [
+		{
+			"key": 7,
+			"type": 6
+		}
+	],
+	"item_frame": [
+		{
+			"key": 7,
+			"type": 6
+		},
+		{
+			"key": 8,
+			"type": 1
+		}
+	],
+	"leash_knot": [],
+	"lightning_bolt": [],
+	"llama": [
+		{
+			"key": 16,
+			"type": 0
+		},
+		{
+			"key": 17,
+			"type": 12
+		},
+		{
+			"key": 18,
+			"type": 7
+		},
+		{
+			"key": 19,
+			"type": 1
+		},
+		{
+			"key": 20,
+			"type": 1
+		},
+		{
+			"key": 21,
+			"type": 1
+		}
+	],
+	"llama_spit": [],
+	"magma_cube": [],
+	"minecart": [],
+	"mooshroom": [
+		{
+			"key": 16,
+			"type": 3
+		}
+	],
+	"mule": [
+		{
+			"key": 16,
+			"type": 0
+		},
+		{
+			"key": 17,
+			"type": 12
+		},
+		{
+			"key": 18,
+			"type": 7
+		}
+	],
+	"ocelot": [
+		{
+			"key": 16,
+			"type": 7
+		}
+	],
+	"painting": [],
+	"panda": [
+		{
+			"key": 16,
+			"type": 1
+		},
+		{
+			"key": 17,
+			"type": 1
+		},
+		{
+			"key": 18,
+			"type": 1
+		},
+		{
+			"key": 19,
+			"type": 0
+		},
+		{
+			"key": 20,
+			"type": 0
+		},
+		{
+			"key": 21,
+			"type": 0
+		}
+	],
+	"parrot": [
+		{
+			"key": 18,
+			"type": 1
+		}
+	],
+	"phantom": [
+		{
+			"key": 15,
+			"type": 1
+		}
+	],
+	"pig": [
+		{
+			"key": 16,
+			"type": 7
+		},
+		{
+			"key": 17,
+			"type": 1
+		}
+	],
+	"piglin": [
+		{
+			"key": 15,
+			"type": 7
+		},
+		{
+			"key": 16,
+			"type": 7
+		},
+		{
+			"key": 17,
+			"type": 7
+		},
+		{
+			"key": 18,
+			"type": 7
+		}
+	],
+	"piglin_brute": [
+		{
+			"key": 15,
+			"type": 7
+		}
+	],
+	"pillager": [
+		{
+			"key": 15,
+			"type": 7
+		},
+		{
+			"key": 16,
+			"type": 7
+		}
+	],
+	"player": [
+		{
+			"key": 14,
+			"type": 2
+		},
+		{
+			"key": 15,
+			"type": 1
+		},
+		{
+			"key": 16,
+			"type": 0
+		},
+		{
+			"key": 17,
+			"type": 0
+		},
+		{
+			"key": 18,
+			"type": 14
+		},
+		{
+			"key": 19,
+			"type": 14
+		}
+	],
+	"polar_bear": [
+		{
+			"key": 16,
+			"type": 7
+		}
+	],
+	"potion": [
+		{
+			"key": 7,
+			"type": 6
+		}
+	],
+	"pufferfish": [
+		{
+			"key": 15,
+			"type": 7
+		},
+		{
+			"key": 16,
+			"type": 1
+		}
+	],
+	"rabbit": [
+		{
+			"key": 16,
+			"type": 1
+		}
+	],
+	"ravager": [
+		{
+			"key": 15,
+			"type": 7
+		}
+	],
+	"salmon": [
+		{
+			"key": 15,
+			"type": 7
+		}
+	],
+	"sheep": [
+		{
+			"key": 16,
+			"type": 0
+		}
+	],
+	"shulker": [
+		{
+			"key": 15,
+			"type": 11
+		},
+		{
+			"key": 16,
+			"type": 10
+		},
+		{
+			"key": 17,
+			"type": 0
+		},
+		{
+			"key": 18,
+			"type": 0
+		}
+	],
+	"shulker_bullet": [],
+	"silverfish": [],
+	"skeleton": [],
+	"skeleton_horse": [
+		{
+			"key": 16,
+			"type": 0
+		},
+		{
+			"key": 17,
+			"type": 12
+		}
+	],
+	"slime": [
+		{
+			"key": 15,
+			"type": 1
+		}
+	],
+	"small_fireball": [
+		{
+			"key": 7,
+			"type": 6
+		}
+	],
+	"snow_golem": [
+		{
+			"key": 15,
+			"type": 0
+		}
+	],
+	"snowball": [
+		{
+			"key": 7,
+			"type": 6
+		}
+	],
+	"spawner_minecart": [],
+	"spectral_arrow": [
+		{
+			"key": 7,
+			"type": 0
+		},
+		{
+			"key": 8,
+			"type": 0
+		}
+	],
+	"spider": [
+		{
+			"key": 15,
+			"type": 0
+		}
+	],
+	"squid": [],
+	"stray": [],
+	"strider": [
+		{
+			"key": 16,
+			"type": 1
+		},
+		{
+			"key": 17,
+			"type": 7
+		},
+		{
+			"key": 18,
+			"type": 7
+		}
+	],
+	"tnt": [
+		{
+			"key": 7,
+			"type": 1
+		}
+	],
+	"tnt_minecart": [],
+	"trader_llama": [],
+	"trident": [
+		{
+			"key": 7,
+			"type": 0
+		},
+		{
+			"key": 8,
+			"type": 0
+		},
+		{
+			"key": 9,
+			"type": 0
+		},
+		{
+			"key": 10,
+			"type": 7
+		}
+	],
+	"tropical_fish": [
+		{
+			"key": 15,
+			"type": 7
+		},
+		{
+			"key": 16,
+			"type": 1
+		}
+	],
+	"turtle": [
+		{
+			"key": 16,
+			"type": 9
+		},
+		{
+			"key": 17,
+			"type": 7
+		},
+		{
+			"key": 18,
+			"type": 7
+		},
+		{
+			"key": 19,
+			"type": 9
+		},
+		{
+			"key": 20,
+			"type": 7
+		},
+		{
+			"key": 21,
+			"type": 7
+		}
+	],
+	"vex": [
+		{
+			"key": 15,
+			"type": 0
+		}
+	],
+	"villager": [
+		{
+			"key": 16,
+			"type": 1
+		},
+		{
+			"key": 17,
+			"type": 16
+		}
+	],
+	"vindicator": [
+		{
+			"key": 15,
+			"type": 7
+		}
+	],
+	"wandering_trader": [
+		{
+			"key": 16,
+			"type": 1
+		}
+	],
+	"witch": [
+		{
+			"key": 15,
+			"type": 7
+		},
+		{
+			"key": 16,
+			"type": 7
+		}
+	],
+	"wither": [
+		{
+			"key": 15,
+			"type": 1
+		},
+		{
+			"key": 16,
+			"type": 1
+		},
+		{
+			"key": 17,
+			"type": 1
+		},
+		{
+			"key": 18,
+			"type": 1
+		}
+	],
+	"wither_skeleton": [],
+	"wither_skull": [
+		{
+			"key": 7,
+			"type": 7
+		}
+	],
+	"wolf": [
+		{
+			"key": 18,
+			"type": 7
+		},
+		{
+			"key": 19,
+			"type": 1
+		},
+		{
+			"key": 20,
+			"type": 1
+		}
+	],
+	"zoglin": [
+		{
+			"key": 15,
+			"type": 7
+		}
+	],
+	"zombie": [
+		{
+			"key": 15,
+			"type": 7
+		},
+		{
+			"key": 16,
+			"type": 1
+		},
+		{
+			"key": 17,
+			"type": 7
+		}
+	],
+	"zombie_horse": [
+		{
+			"key": 16,
+			"type": 0
+		},
+		{
+			"key": 17,
+			"type": 12
+		}
+	],
+	"zombie_villager": [
+		{
+			"key": 18,
+			"type": 7
+		},
+		{
+			"key": 19,
+			"type": 16
+		}
+	],
+	"zombified_piglin": [],
+	"~abstract_ageable": [
+		{
+			"key": 15,
+			"type": 7
+		}
+	],
+	"~abstract_animal": [],
+	"~abstract_creature": [],
+	"~abstract_entity": [
+		{
+			"key": 0,
+			"type": 0
+		},
+		{
+			"key": 1,
+			"type": 1
+		},
+		{
+			"key": 2,
+			"type": 5
+		},
+		{
+			"key": 3,
+			"type": 7
+		},
+		{
+			"key": 4,
+			"type": 7
+		},
+		{
+			"key": 5,
+			"type": 7
+		},
+		{
+			"key": 6,
+			"type": 18
+		}
+	],
+	"~abstract_insentient": [
+		{
+			"key": 14,
+			"type": 0
+		}
+	],
+	"~abstract_living": [
+		{
+			"key": 7,
+			"type": 0
+		},
+		{
+			"key": 8,
+			"type": 2
+		},
+		{
+			"key": 9,
+			"type": 1
+		},
+		{
+			"key": 10,
+			"type": 7
+		},
+		{
+			"key": 11,
+			"type": 1
+		},
+		{
+			"key": 12,
+			"type": 1
+		},
+		{
+			"key": 13,
+			"type": 10
+		}
+	],
+	"~abstract_minecart": [
+		{
+			"key": 7,
+			"type": 1
+		},
+		{
+			"key": 8,
+			"type": 1
+		},
+		{
+			"key": 9,
+			"type": 2
+		},
+		{
+			"key": 10,
+			"type": 1
+		},
+		{
+			"key": 11,
+			"type": 1
+		},
+		{
+			"key": 12,
+			"type": 7
+		}
+	],
+	"~abstract_monster": [],
+	"~abstract_tameable": [
+		{
+			"key": 16,
+			"type": 0
+		},
+		{
+			"key": 17,
+			"type": 12
+		}
+	]
+}

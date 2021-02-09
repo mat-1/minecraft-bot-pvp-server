@@ -75,8 +75,6 @@ module.exports.server = (serv: MCServer, { version }) => {
 		player?: MCPlayer
 
 		acceptClick (click) {
-			console.log(click)
-			console.log(click.mouseButton === 0 || click.mouseButton === 1)
 			if (click.slot === -999) {
 			  this.acceptOutsideWindowClick(click)
 			} else if (click.slot >= this.inventoryStart && click.slot < this.inventoryEnd) {
@@ -95,7 +93,6 @@ module.exports.server = (serv: MCServer, { version }) => {
 	
 	class ImmutableWindow extends CompleteWindow {
 		acceptNonInventorySwapAreaClick(click: ClickInfo) {
-			console.log('cancelled inventory swap')
 			return
 		}
 	}
@@ -118,9 +115,7 @@ module.exports.server = (serv: MCServer, { version }) => {
 			requireConfirmation: type !== 'minecraft:container'
 		  }
 		}
-		console.log('winData', winData)
 		slotCount = winData.slots
-		console.log('windowType', windowType)
 		// @ts-expect-error idk how to make this work
 		const window = new windowType(id, winData.key, title, slotCount, winData.inventory, winData.craft, winData.requireConfirmation, player)
 		if (player) window.player = player
@@ -131,11 +126,9 @@ module.exports.server = (serv: MCServer, { version }) => {
 
 	module.exports.player = (player: MCPlayer) => {
 		player.openWindow = (inventoryType: InventoryTypes, name: ChatMessage | string, windowType?: CompleteWindowInterface): typeof Window.prototype => {
-			console.log('inventoryType', inventoryType)
 			currentWindowId ++
 			// @ts-expect-error typescript moment
 			const window = serv.createWindow(windowType || CompleteWindow, currentWindowId, inventoryType, JSON.stringify(name))
-			console.log(window, windows.windows[window.type])
 			player._client.write('open_window', {
 				windowId: window.id,
 				inventoryType: windows.windows[window.type].type,
@@ -143,7 +136,6 @@ module.exports.server = (serv: MCServer, { version }) => {
 			})
 			const windowClick = (clickInfo: ClickInfo) => {
 				window.acceptClick(clickInfo)
-				console.log('aight accepted click')
 			}
 			player.on(`window_click:${window.id}`, windowClick)
 			return window

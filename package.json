@@ -24,6 +24,7 @@
     "emit-then": "^2.0.0",
     "event-promise": "^0.0.1",
     "flatmap": "^0.0.3",
+    "hjson": "^3.2.2",
     "long": "^4.0.0",
     "minecraft-data": "^2.74.0",
     "minecraft-protocol": "^1.15.0",

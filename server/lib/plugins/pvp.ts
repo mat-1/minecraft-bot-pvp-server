@@ -16,13 +16,9 @@ module.exports.player = (player, serv: MCServer) => {
 
 		// This is required for the death animation to happen!
 		// Although, it can probably be changed to only send if the health is 0 so the opponent cant use hacks to see their health
-		player.sendMetadata([
-			{
-				key: 8,
-				type: 2,
-				value: health
-			}
-		])
+		player.setAndUpdateMetadata({
+			health: health
+		})
 	}
 
 	function attackEntity(entityId: number) {
@@ -32,7 +28,7 @@ module.exports.player = (player, serv: MCServer) => {
 
 		let multiplier = 1
 
-		if (player.sprinting) multiplier ++
+		if (player.metadata.sprinting) multiplier ++
 		
 		const velocity = attackedEntity.calculateKnockback({multiplier: multiplier * .5, x: Math.sin(player.yaw * Math.PI/180), z: -Math.cos(player.yaw * Math.PI/180)}).scaled(16)
 		player.behavior('attack', {
