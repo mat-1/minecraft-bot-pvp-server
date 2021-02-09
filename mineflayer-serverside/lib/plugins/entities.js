@@ -66,7 +66,8 @@ function inject (bot, { version }) {
   bot.uuidToUsername = {}
   bot.entities = {}
 
-  bot.nearestEntity = (match = (entity) => { return true }) => {
+  bot.nearestEntity = (match) => {
+    if (!match) match = (entity) => { return true }
     let best = null
     let bestDistance = Number.MAX_VALUE
 
