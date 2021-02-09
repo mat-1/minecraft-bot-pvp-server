@@ -1,6 +1,7 @@
 import createMCServer from './server/index'
 import * as WorldConstructor from 'prismarine-world'
 import { Anvil as AnvilConstructor } from 'prismarine-provider-anvil'
+import * as path from 'path'
 
 
 function HSVtoRGB(h, s, v) {
@@ -102,7 +103,7 @@ function makePingResponse(response, client, answerToPing) {
 const serv = createMCServer({
 	'port': 25565,
 	'max-players': 1000,
-	'online-mode': false,
+	'online-mode': true,
 	'logging': true,
 	'gameMode': 2,
 	'difficulty': 1,
@@ -120,7 +121,7 @@ const serv = createMCServer({
 	  'header': {'text': ''},
 	  'footer': {'text': ''}
 	},
-	'everybody-op': true,
+	'everybody-op': false,
 	'version': '1.16.4',
 	beforePing: makePingResponse
 })
@@ -140,7 +141,7 @@ serv.gameServers = []
 const Anvil = AnvilConstructor(serv._server.version)
 const World = WorldConstructor(serv._server.version)
 
-serv.hub = new World(null, new Anvil('./worlds/hub'))
+serv.hub = new World(null, new Anvil(path.join(__dirname, './worlds/hub')))
 
 
 

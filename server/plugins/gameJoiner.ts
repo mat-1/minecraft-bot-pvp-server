@@ -4,6 +4,7 @@ import { Anvil as AnvilConstructor } from 'prismarine-provider-anvil'
 import PVPBot from '../../mineflayer-pvp'
 import type { MCServer } from '../'
 import { CommandDispatcher, literal } from 'node-brigadier'
+import * as path from 'path'
 
 const arenaWorlds = ['arena1', 'arena2', 'arena3']
 
@@ -13,7 +14,7 @@ module.exports.server = (serv: MCServer) => {
 
 	async function doPvpMatch(player) {
 		const arenaWorld = arenaWorlds[Math.floor(Math.random() * arenaWorlds.length)]
-		const gameWorld = new World(null, new Anvil('./worlds/' + arenaWorld))
+		const gameWorld = new World(null, new Anvil(path.join(__dirname, './worlds/' + arenaWorld)))
 		// const gameWorld = ctx.player.world
 		serv.gameServers.push(gameWorld)
 		player.changeWorld(
