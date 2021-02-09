@@ -1,6 +1,6 @@
 import { Block } from "prismarine-block";
 import { Vec3 } from "vec3";
-import Section from "./section";
+import { Section } from "./section";
 
 export = loader;
 declare function loader(mcVersion: number): typeof Chunk;

@@ -1,6 +1,6 @@
 import { Vec3 } from "vec3";
 
-export = Section;
+export { Section };
 declare class Section {
     static fromJson(j: any): Section;
     static sectionSize(skyLightSent?: boolean): number;
