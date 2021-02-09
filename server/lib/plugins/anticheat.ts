@@ -1,6 +1,6 @@
 import { Physics, PlayerState } from 'prismarine-physics'
 import * as mcDataInitializer from 'minecraft-data'
-import { Vec3 } from 'Vec3'
+import { Vec3 } from 'vec3'
 
 
 function vec3MostlyEquals(a: Vec3, b: Vec3): Boolean {
