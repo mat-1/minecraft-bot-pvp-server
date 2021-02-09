@@ -14,7 +14,8 @@ module.exports.server = (serv: MCServer) => {
 
 	async function doPvpMatch(player) {
 		const arenaWorld = arenaWorlds[Math.floor(Math.random() * arenaWorlds.length)]
-		const gameWorld = new World(null, new Anvil(path.join(__dirname, '../../../worlds/' + arenaWorld)))
+		console.log(path.join(__dirname, '../../worlds/' + arenaWorld))
+		const gameWorld = new World(null, new Anvil(path.join(__dirname, '../../worlds/' + arenaWorld)))
 		// const gameWorld = ctx.player.world
 		serv.gameServers.push(gameWorld)
 		player.changeWorld(
