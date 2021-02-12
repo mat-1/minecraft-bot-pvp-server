@@ -83,14 +83,14 @@ module.exports.server = function (serv, settings) {
 }
 
 module.exports.player = function (player, serv) {
-  player.on('connected', () => serv.log('[' + colors.green('INFO') + ']: ' + player.username + ' (' + player.isNpc ? 'npc' : player._client.socket.remoteAddress + ') connected'))
+  // player.on('connected', () => serv.log('[' + colors.green('INFO') + ']: ' + player.username + ' (' + player.isNpc ? 'npc' : player._client.socket.remoteAddress + ') connected'))
 
-  player.on('spawned', () => serv.log('[' + colors.green('INFO') + ']: position written, player spawning...'))
+  // player.on('spawned', () => serv.log('[' + colors.green('INFO') + ']: position written, player spawning...'))
 
-  player.on('disconnected', () => serv.log('[' + colors.green('INFO') + ']: ' + player.username + ' disconnected'))
+  // player.on('disconnected', () => serv.log('[' + colors.green('INFO') + ']: ' + player.username + ' disconnected'))
 
-  player.on('chat', ({ message }) => serv.log('[' + colors.green('INFO') + '] ' + '<' + player.username + '>' + ' ' + message))
+  // player.on('chat', ({ message }) => serv.log('[' + colors.green('INFO') + '] ' + '<' + player.username + '>' + ' ' + message))
 
-  player.on('kicked', (kicker, reason) =>
-    serv.log(kicker.username + ' kicked ' + player.username + (reason ? ' (' + reason + ')' : '')))
+  // player.on('kicked', (kicker, reason) =>
+  //   serv.log(kicker.username + ' kicked ' + player.username + (reason ? ' (' + reason + ')' : '')))
 }

@@ -104,7 +104,7 @@ const serv = createMCServer({
 	'port': 25565,
 	'max-players': 1000,
 	'online-mode': process.env.replit === 'true' ? true : false,
-	'logging': true,
+	'logging': false,
 	'gameMode': 2,
 	'difficulty': 1,
 	'generation': {

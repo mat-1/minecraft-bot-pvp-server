@@ -118,7 +118,9 @@ module.exports.entity = (entity: MCEntity) => {
 		crouching: false,
 		sprinting: false,
 	}
-	entity.createMetadataPacket = (metadata: { [key: string]: any }): MetadataPacket[] => {
+	entity.createMetadataPacket = (metadata?: { [key: string]: any }): MetadataPacket[] => {
+		if (!metadata) metadata = entity.metadata
+		if (!metadata) return
 		const metadataPacket = []
 		const relevantPackets = getRelevantPackets(entity)
 		for (const packet of relevantPackets) {
@@ -156,7 +158,6 @@ module.exports.entity = (entity: MCEntity) => {
 			entityId: entity.id,
 			metadata: entity.createMetadataPacket(metadata)
 		}
-		console.log(packet)
 		if (targetPlayer)
 			targetPlayer._client.write('entity_metadata', packet)
 		else
@@ -164,7 +165,7 @@ module.exports.entity = (entity: MCEntity) => {
 	}
 
 	entity.setAndUpdateMetadata = (metadata: { [key: string]: any }, targetPlayer?: MCPlayer): void => {
-		entity.metadata = { ...entity.metadata, metadata }
+		Object.apply(entity.metadata, metadata)
 		if (targetPlayer)
 			entity.sendMetadata(metadata, targetPlayer)
 		else

@@ -227,7 +227,6 @@ module.exports.player = function (player, serv, settings) {
 	}
 
 	player.sendMap = () => {
-		console.log('sending map...')
 		return player.sendNearbyChunks(Math.min(3, settings['view-distance']))
 			.catch((err) => setTimeout(() => { throw err }), 0)
 	}

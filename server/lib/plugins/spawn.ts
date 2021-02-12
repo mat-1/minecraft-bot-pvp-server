@@ -199,8 +199,9 @@ module.exports.player = function (player, serv, options) {
 	const Item = require('prismarine-item')(version)
 
 	player.spawnEntity = (entity) => {
-		console.log('player spawnEntity', entity.username)
-		player._client.write(entity.spawnPacketName, entity.getSpawnPacket())
+		const spawnPacket = entity.getSpawnPacket()
+		// console.log('player spawnEntity', entity.username, spawnPacket)
+		player._client.write(entity.spawnPacketName, spawnPacket)
 		if (serv.supportFeature('entityMetadataSentSeparately')) {
 			entity.sendMetadata(entity.metadata)
 		}
@@ -289,7 +290,7 @@ module.exports.entity = function (entity, serv) {
 				yaw: conv256(entity.yaw),
 				pitch: conv256(entity.pitch),
 				currentItem: 0,
-				metadata: entity.metadata
+				metadata: entity.createMetadataPacket()
 			}
 		} else if (entity.type === 'object') {
 			return {
@@ -322,7 +323,7 @@ module.exports.entity = function (entity, serv) {
 				velocityX: scaledVelocity.x,
 				velocityY: scaledVelocity.y,
 				velocityZ: scaledVelocity.z,
-				metadata: entity.metadata
+				metadata: entity.createMetadataPacket()
 			}
 		}
 	}

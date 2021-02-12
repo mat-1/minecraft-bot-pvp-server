@@ -11,8 +11,6 @@ module.exports.server = (serv: MCServer, { version }) => {
 		player.heldItem = new Item(256, 1)
 		player.inventory = serv.createWindow(InventoryWindow, 0, 'minecraft:inventory', 'inv', 36)
 
-		console.log('player.inventory', player.inventory)
-
 		let previousHeldItem = null
 		player.updateHeldItem = () => {
 			if (previousHeldItem === player.heldItem) return

@@ -214,7 +214,7 @@ export interface MCEntity extends Entity {
 
 	// entities
 	metadata: any
-	createMetadataPacket: (metadata: any) => MetadataPacket[]
+	createMetadataPacket: (metadata?: any) => MetadataPacket[]
 	sendMetadata: (metadata: any, targetPlayer?: MCPlayer) => void
 	setAndUpdateMetadata: (metadata: any, targetPlayer?: MCPlayer) => void
 

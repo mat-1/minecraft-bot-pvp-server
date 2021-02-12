@@ -184,7 +184,6 @@ module.exports.player = async function (player, serv, settings) {
 				ping: otherPlayer._client.latency
 			}))
 		})
-		console.log('written player_info')
 		setInterval(() => player._client.write('player_info', {
 			action: 2,
 			data: serv.players.filter(otherPlayer => otherPlayer.uuid !== undefined).map(otherPlayer => ({
