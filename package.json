@@ -59,6 +59,7 @@
     "url": "http://github.com/PrismarineJS/flying-squid/issues"
   },
   "devDependencies": {
+    "dotenv": "^8.2.0",
     "flying-squid": "file:.",
     "mineflayer": "file:mineflayer-serverside"
   }

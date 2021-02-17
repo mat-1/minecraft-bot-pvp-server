@@ -26,11 +26,13 @@ module.exports.player = (player, serv: MCServer) => {
 		const attackedEntity = serv.entities[entityId]
 		if (!attackedEntity || (![GAMEMODES.survival, GAMEMODES.adventure].includes(attackedEntity.gameMode) && attackedEntity.type === 'player')) return
 
-		let multiplier = 1
+		let multiplier = 0
+
+		multiplier += 1 //
 
 		if (player.metadata.sprinting) multiplier ++
 		
-		const velocity = attackedEntity.calculateKnockback({multiplier: multiplier * .5, x: Math.sin(player.yaw * Math.PI/180), z: -Math.cos(player.yaw * Math.PI/180)}).scaled(16)
+		const velocity = attackedEntity.calculateKnockback({multiplier: multiplier * .5, x: Math.sin(player.yaw * Math.PI / 180), z: -Math.cos(player.yaw * Math.PI / 180)}).scaled(16)
 		player.behavior('attack', {
 			attackedEntity: attackedEntity,
 			velocity: velocity
@@ -58,8 +60,13 @@ module.exports.entity = (entity, serv: MCServer) => {
 		const normalizedVelocity: Vec3 = new Vec3(x, 0.0, z).normalize().scaled(multiplier)
 		entity.velocityChanged = true
 
-		// vanilla
-		return new Vec3(originalVelocity.x / 2.0 - normalizedVelocity.x, entity.onGround ? Math.min(0.4, originalVelocity.y / 2.0 + multiplier) : originalVelocity.y, originalVelocity.z / 2.0 - normalizedVelocity.z)
+		// vanilla 1.16
+		return new Vec3(
+			originalVelocity.x / 2.0 - normalizedVelocity.x,
+			entity.onGround ? Math.min(0.4, originalVelocity.y / 2.0 + multiplier) : originalVelocity.y,
+			// 0.4,
+			originalVelocity.z / 2.0 - normalizedVelocity.z
+		)
 
 		// combo
 		// return new Vec3(originalVelocity.x / 2.0 - normalizedVelocity.x, Math.min(0.4, originalVelocity.y / 2.0 + multiplier), originalVelocity.z / 2.0 - normalizedVelocity.z)

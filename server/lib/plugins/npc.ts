@@ -110,25 +110,23 @@ module.exports.brigadier = (dispatcher: CommandDispatcher<unknown>, serv) => {
 	dispatcher.register(	
 		literal('npc')
 			.requires((c: any) => c.player.op)
-			.executes(c => {
-				const source: any = c.getSource()
+			.executes((c: any) => {
 				serv.createNPC({
 					username: 'npc',
-					world: source.player.world
+					world: c.source.player.world
 				})
 				return 0
 			})
 			.then(
 				literal('pvp')
 					.executes((c: any) => {
-						const source: any = c.getSource()
 						(async() => {
 							const bot: any = await serv.createNPC({
 								username: 'npc',
-								world: source.player.world
+								world: c.source.player.world
 							})
 							PVPBot(bot)
-							bot.pvp.start(source.player)	
+							bot.pvp.start(c.source.player)	
 						})()
 						return 0
 					})

@@ -147,7 +147,8 @@ module.exports.server = function (serv) {
 module.exports.player = function (player, serv) {
   player._client.on('chat', ({ message }: { message?: string }) => {
     if (message[0] === '/') {
-      player.behavior('command', { command: message.slice(1) }, ({ command }) => player.handleCommand(command))
+      const command = message.slice(1)
+      player.handleCommand(command)
       serv.info(`${player.username} issued command: ${message.split(' ')[0]}`)
     } else {
       player.behavior('chat', {

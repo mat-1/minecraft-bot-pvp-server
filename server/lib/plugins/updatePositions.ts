@@ -238,6 +238,10 @@ module.exports.entity = function (entity, serv) {
 				// })
 			}
 
+			// TODO: is this how vanilla does it?
+			if (entity.previousPosition)
+				entity.velocity = entity.position.minus(entity.previousPosition)
+
 			entity.previousPosition = entity.position
 			entity.previousRotation = { pitch: entity.pitch, yaw: entity.yaw }
 			entity.previousConvYaw = convYaw
@@ -245,6 +249,13 @@ module.exports.entity = function (entity, serv) {
 			entity.onGround = onGround
 			entity.velocityChanged = false
 		}
+
+		// we need another variable since this is updated every game tick rather than entity tick lol
+		if (entity.positionBefore)
+			entity.velocity = entity.position.minus(entity.positionBefore)
+
+		entity.positionBefore = entity.position
+
 		entity.trackingTick ++
 	}
 

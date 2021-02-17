@@ -3,6 +3,12 @@ import * as WorldConstructor from 'prismarine-world'
 import { Anvil as AnvilConstructor } from 'prismarine-provider-anvil'
 import * as path from 'path'
 
+if (!process.env.dev)
+	// if there's no env, load it
+	require('dotenv').config()
+
+const isDev = process.env.dev === 'true'
+
 
 function HSVtoRGB(h, s, v) {
 	// https://axonflux.com/handy-rgb-to-hsl-and-rgb-to-hsv-color-model-c
@@ -103,7 +109,7 @@ function makePingResponse(response, client, answerToPing) {
 const serv = createMCServer({
 	'port': 25565,
 	'max-players': 1000,
-	'online-mode': process.env.replit === 'true' ? true : false,
+	'online-mode': isDev ? false : true,
 	'logging': false,
 	'gameMode': 2,
 	'difficulty': 1,
@@ -121,7 +127,7 @@ const serv = createMCServer({
 	  'header': {'text': ''},
 	  'footer': {'text': ''}
 	},
-	'everybody-op': process.env.replit === 'true' ? false : true,
+	'everybody-op': isDev ? true : false,
 	'version': '1.16.4',
 	beforePing: makePingResponse
 })
