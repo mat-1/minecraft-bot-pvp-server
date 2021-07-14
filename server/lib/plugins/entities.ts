@@ -30,6 +30,7 @@ module.exports.server = function (serv) {
 				// const posAndOnGround = await entity.calculatePhysics(delta)
 				// if (entity.type === 'mob') entity.sendPosition(posAndOnGround.position, posAndOnGround.onGround)
 				entity.tick()
+				entity.emit('tick')
 			})
 		)
 			.then(() => { ticking = false })

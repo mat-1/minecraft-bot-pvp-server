@@ -75,11 +75,12 @@ module.exports.server = function (serv, options) {
 		return mob
 	}
 
-	serv.destroyEntity = entity => {
+	serv.destroyEntity = (entity: MCEntity) => {
 		entity._writeOthersNearby('entity_destroy', {
 			entityIds: [entity.id]
 		})
 		delete serv.entities[entity.id]
+		entity.removeAllListeners()
 	}
 
 	const entitiesByName = require('minecraft-data')(version).entitiesByName
