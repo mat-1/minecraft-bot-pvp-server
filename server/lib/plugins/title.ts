@@ -1,3 +1,4 @@
+import { MCPlayer } from '../..'
 import type { ChatMessage } from './chat'
 
 interface TitleDisplay {
@@ -6,14 +7,14 @@ interface TitleDisplay {
 	fadeOut: number
 }
 
-interface Title {
+export interface Title {
 	title?: ChatMessage
 	subtitle?: ChatMessage
 	actionBar?: ChatMessage
 	display?: TitleDisplay
 }
 
-module.exports.player = function (player, serv) {
+module.exports.player = function (player: MCPlayer, serv) {
 	let hasTitleClearListener = false
 
 	player.title = ({ title, subtitle, actionBar, display }: Title) => {
@@ -53,7 +54,7 @@ module.exports.player = function (player, serv) {
 		}
 	}
 
-	player.actionBar = (text) => {
+	player.actionBar = (text: ChatMessage) => {
 		player.title({ actionBar: text })
 	}
 }

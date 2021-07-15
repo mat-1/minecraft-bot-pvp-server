@@ -1,5 +1,5 @@
 import type { World } from 'prismarine-world'
-import type { MCServer } from '../..'
+import type { MCPlayer, MCServer } from '../..'
 import { Vec3 } from 'vec3'
 
 const actions = {
@@ -19,7 +19,7 @@ export interface removeBlockEntityOptions {
 	position: Vec3,
 }
 
-module.exports.player = function (player, serv: MCServer) {
+module.exports.player = function (player: MCPlayer, serv: MCServer) {
 	serv.putBlockEntity = async ({ world, id, position, extra }: putBlockEntityOptions) => {
 		await serv.removeBlockEntity({ world, position }) // remove the block entity there, if there is one
 		const column = await world.getColumnAt(position)

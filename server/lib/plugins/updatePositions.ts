@@ -71,6 +71,7 @@ module.exports.player = function (player) {
 			flags: 0x00,
 			teleportId: 1
 		})
+		player.emit('position')
 	}
 
 	player.teleport = async (position) => {

@@ -26,6 +26,8 @@ import type { Item } from 'prismarine-item'
 import type { Entity } from 'prismarine-entity'
 import type { Window } from 'prismarine-windows'
 import { MetadataPacket } from './lib/plugins/entities'
+import { Title } from './lib/plugins/title'
+import * as mcData from 'minecraft-data'
 
 export default function createMCServer(options={}): MCServer {
 	const mcServer = new MCServer()
@@ -52,13 +54,15 @@ declare module 'minecraft-protocol' {
 	}
 }
 
-class NMPServer extends require('minecraft-protocol').Server {
-
+interface NMPServer extends mc.Server {
+	/** The server version as a string */
+	version: string
+	mcversion: mcData.Version
 }
 
-class NMPClient extends require('minecraft-protocol').Client {
+type NMPClient = mc.Client
 
-}
+
 
 interface Color {
 	black: string
@@ -177,7 +181,7 @@ export class MCServer extends EventEmitter {
 		this.supportFeature = feature => supportFeature(feature, version.majorVersion)
 
 		this.commands = new Command({})
-		this._server = mc.createServer(options)
+		this._server = mc.createServer(options) as NMPServer
 		Object.keys(plugins)
 			.filter(pluginName => plugins[pluginName].server !== undefined)
 			.forEach(pluginName => plugins[pluginName].server(this, options))
@@ -241,6 +245,10 @@ export interface MCPlayer extends MCEntity {
 	updateHeldItem: () => void
 	collect: (collectEntity: MCItemEntity) => void
 	sendMetadataFrom: (otherEntity: MCEntity | MCPlayer) => void
+
+	// title
+	title: (title: Title) => void
+	actionBar: (text: ChatMessage) => void
 }
 
 export interface MCItemEntity extends MCEntity {

@@ -144,16 +144,18 @@ module.exports.player = function (player, serv: MCServer, { version }) {
 		let modulo = look % sensitivity
 		if (modulo > s / 2)
 			modulo -= s
-		// console.log(modulo, look)
+		console.log(modulo, look)
 		return modulo
 	}
 
 	function isUnacceptableLook(look: number, s: number): boolean {
+		if (look < 0.00005) return false // sometimes the look direction is really low, idk why
 		// be more generous when the look is higher
 		return (calculateModuloForLook(look, s) > 0.00225 * look)
 	}
 
 	let previousMouseSpeed = 0
+	let positionReset = false
 
 	function updateLook(yaw: number, pitch: number) {
 		if (player.isNpc) return
@@ -163,11 +165,18 @@ module.exports.player = function (player, serv: MCServer, { version }) {
 		}
 		let previousRawYaw = rawYaw
 		let previousRawPitch = rawPitch
+		rawYaw = yaw
+		rawPitch = pitch
+
+		// the player was teleported or something, ignore this tick
+		if (positionReset) {
+			positionReset = false
+			return
+		}
 
 		const rawYawDifference = Math.abs(previousRawYaw - yaw)
 		const rawPitchDifference = Math.abs(previousRawPitch - pitch)
-		console.log(rawYawDifference, rawPitchDifference)
-		if (rawYawDifference < lowestPossibleSensitivity && rawPitchDifference < lowestPossibleSensitivity) return console.log('probably in cinematic camera')
+		// if (rawYawDifference < lowestPossibleSensitivity && rawPitchDifference < lowestPossibleSensitivity) return console.log('probably in cinematic camera')
 
 		if (previousRawYaw !== undefined) {
 
@@ -274,8 +283,6 @@ module.exports.player = function (player, serv: MCServer, { version }) {
 				}
 			}
 		}
-		rawYaw = yaw
-		rawPitch = pitch
 		// player.state.yaw = (-yaw + 180) * Math.PI / 180
 		// player.state.pitch = pitch * Math.PI / 180
 	}
@@ -293,6 +300,10 @@ module.exports.player = function (player, serv: MCServer, { version }) {
 			lookDifferences.clear()
 		}
 		settingsPacketsInThisTick = 0
+	})
+
+	player.on('position', () => {
+		positionReset = true
 	})
 
 	player._client.on('position', ({ x, y, z, onGround }: any = {}) => {
