@@ -325,7 +325,7 @@ module.exports.player = function (player: MCPlayer, serv: MCServer, { version })
 	})
 
 	player.on('tick', () => {
-		if (settingsPacketsInThisTick === 1) {
+		if (settingsPacketsInThisTick === 2) {
 			sensitivity = highestPossibleSensitivity
 			certainAboutSensitivity = false
 			lookDifferences.clear()
