@@ -204,15 +204,14 @@ module.exports.player = function (player: MCPlayer, serv: MCServer, { version })
 	let sensitivity: number = highestPossibleSensitivity
 
 	function calculateModuloForLook(look: number, s: number): number {
-		let modulo = look % s
-		if (modulo > s / 2)
-			modulo -= s
-		return Math.abs(modulo)
+		let modulo =  Math.abs(look % s)
+		return Math.min(modulo, s - modulo)
 	}
 
 	function isUnacceptableLook(look: number, s: number): boolean {
-		if (look < 0.00005) return false // sometimes the look direction is really low, idk why
+		// if (look < 0.00005) return false // sometimes the look direction is really low, idk why
 		return calculateModuloForLook(look, s) > 0.005
+			&& calculateModuloForLook(360 - look, s) > 0.005
 	}
 
 	let previousMouseSpeed = 0
@@ -230,6 +229,7 @@ module.exports.player = function (player: MCPlayer, serv: MCServer, { version })
 			player.kick('Cheating :(')
 			return
 		}
+
 		let previousRawYaw = rawYaw
 		let previousRawPitch = rawPitch
 		rawYaw = yaw
@@ -256,12 +256,13 @@ module.exports.player = function (player: MCPlayer, serv: MCServer, { version })
 		// console.log(previousRawYawDifference2, rawYawDifference2)
 		// return
 		// if (rawYawDifference < lowestPossibleSensitivity && rawPitchDifference < lowestPossibleSensitivity) return console.log('probably in cinematic camera')
-		// console.log(rawYawDifference, rawPitchDifference, yaw, pitch)
+		console.log(rawYawDifference, rawPitchDifference, yaw, pitch)
 
 		if (previousRawYaw !== undefined) {
 			if (certainAboutSensitivity) {
 				if (
-					isUnacceptableLook(rawYawDifference, sensitivity)
+					// idk why but the pitch being 90 affects the yaw sometimes???
+					(pitch !== 90 && pitch !== -90 && isUnacceptableLook(rawYawDifference, sensitivity))
 					|| (pitch !== 90 && pitch !== -90 && isUnacceptableLook(rawPitchDifference, sensitivity))
 				) {
 					console.log('difference:', rawYawDifference, rawPitchDifference)
@@ -286,6 +287,7 @@ module.exports.player = function (player: MCPlayer, serv: MCServer, { version })
 				if (
 					rawYawDifference !== 0
 					&& yaw !== 0
+					&& rawPitchDifference < 180 // sometimes this breaks things
 					// make sure there's not already a similar number
 					&& !Array.from(lookDifferences).find(d => Math.abs(d - rawYawDifference) < .001)
 				) {

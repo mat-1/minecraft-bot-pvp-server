@@ -81,7 +81,6 @@ export class LimitedBot {
 		const { position, height, pitch, yaw } = this.bot.entity
 
 		const eyePosition = position.offset(0, height, 0)
-		console.log(eyePosition)
 		const viewDirection = this.getViewDirection(pitch, yaw)
 		
 		// add 1 extra because vanilla reach is technically 4 blocks
