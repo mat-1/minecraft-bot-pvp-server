@@ -256,7 +256,7 @@ module.exports.player = function (player: MCPlayer, serv: MCServer, { version })
 		// console.log(previousRawYawDifference2, rawYawDifference2)
 		// return
 		// if (rawYawDifference < lowestPossibleSensitivity && rawPitchDifference < lowestPossibleSensitivity) return console.log('probably in cinematic camera')
-		console.log(rawYawDifference, rawPitchDifference, yaw, pitch)
+		// console.log(rawYawDifference, rawPitchDifference, yaw, pitch)
 
 		if (previousRawYaw !== undefined) {
 			if (certainAboutSensitivity) {
