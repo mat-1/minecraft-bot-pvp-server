@@ -62,6 +62,7 @@ module.exports.player = function (player) {
 
 	player.sendSelfPosition = () => {
 		// double position in all versions
+		player.emit('position')
 		player._client.write('position', {
 			x: player.position.x,
 			y: player.position.y,
@@ -71,7 +72,6 @@ module.exports.player = function (player) {
 			flags: 0x00,
 			teleportId: 1
 		})
-		player.emit('position')
 	}
 
 	player.teleport = async (position) => {

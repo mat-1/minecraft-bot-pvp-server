@@ -80,8 +80,8 @@ export class LimitedBot {
 	entityAtCursor(maxDistance = 3): null | Entity {
 		const { position, height, pitch, yaw } = this.bot.entity
 
-
 		const eyePosition = position.offset(0, height, 0)
+		console.log(eyePosition)
 		const viewDirection = this.getViewDirection(pitch, yaw)
 		
 		// add 1 extra because vanilla reach is technically 4 blocks
@@ -91,7 +91,6 @@ export class LimitedBot {
 		for (const entityId in this.bot.entities) {
 			const entity = this.bot.entities[entityId]
 			if (entity.type === null) return null
-			// @ts-ignore-error
 			const entityData = this.bot.mcdata.entitiesByName[entity.type]
 			// @ts-expect-error for some reason they didnt put id in the typings for prismarine-entity
 			if (this.bot.entity.id === entity.id) continue
@@ -137,7 +136,6 @@ export class LimitedBot {
 			this.bot.setControlState('sprint', false)
 		} else
 			this.bot.swingArm()
-		
 	}
 
 	get position(): Vec3 {

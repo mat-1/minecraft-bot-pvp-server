@@ -28,6 +28,8 @@ import type { Window } from 'prismarine-windows'
 import { MetadataPacket } from './lib/plugins/entities'
 import { Title } from './lib/plugins/title'
 import * as mcData from 'minecraft-data'
+import { State } from './lib/plugins/anticheat'
+
 
 export default function createMCServer(options={}): MCServer {
 	const mcServer = new MCServer()
@@ -249,6 +251,21 @@ export interface MCPlayer extends MCEntity {
 	// title
 	title: (title: Title) => void
 	actionBar: (text: ChatMessage) => void
+
+	// anticheat
+	state: Partial<State>
+	previousState: Partial<State>
+
+	// npc
+	isNpc: boolean
+
+	// moderation
+	kick: (reason: string) => void
+	ban: (reason: string) => void
+	banIP: (reason: string) => void
+
+	// chat
+	chat: (message: string | object) => void
 }
 
 export interface MCItemEntity extends MCEntity {

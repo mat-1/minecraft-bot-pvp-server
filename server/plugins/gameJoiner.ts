@@ -60,9 +60,9 @@ module.exports.server = (serv: MCServer) => {
 		setTimeout(() => { // wait 5 seconds before initially destroying to make sure everything is initialized properly
 			const worldDestroyerInterval = setInterval(() => {
 				if (serv.isWorldInactive(gameWorld)) {
+					clearInterval(worldDestroyerInterval)
 					console.log('world is being destroyed!', serv.players.filter(p => p.isNpc && p.world === gameWorld).map(p => p.username))
 					serv.destroyWorld(gameWorld)
-					clearInterval(worldDestroyerInterval)
 				}
 			}, 1000)
 		}, 5000)

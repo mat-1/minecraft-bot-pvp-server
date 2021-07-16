@@ -16,9 +16,8 @@ export interface BotPvp {
 
 async function tick(bot: LimitedBot, opponent: Entity, config: PvpConfig) {
 	await bot.lookAt(opponent.position.offset(0, 1.62, 0))
-	if (config.cps > 0 && bot.aliveTick % Math.ceil(20 / config.cps) == 0) {
+	if (config.cps > 0 && bot.aliveTick % Math.ceil(20 / config.cps) == 0)
 		bot.attack()
-	}
 	if (bot.position.distanceTo(opponent.position) > 2) {
 		bot.setControlState('forward', true)
 		if (bot.position.distanceTo(opponent.position) > 6) {

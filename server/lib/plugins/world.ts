@@ -265,6 +265,7 @@ module.exports.player = function (player, serv, settings) {
 			isFlat: false,
 			copyMetadata: true
 		})
+		player.emit('position')
 		if (spawnpoint) player.spawnPoint = spawnpoint
 		else await player.findSpawnPoint()
 		player.position = player.spawnPoint

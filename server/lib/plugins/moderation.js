@@ -43,20 +43,15 @@ module.exports.server = function (serv, settings) {
   }
 
   serv.banUsername = async (username, reason) => {
-    return serv.ban(username, reason)
-  }
-
-  serv.banUUID = async (username, reason) => {
     return serv.getUUIDFromUsername(username).then(uuid => serv.ban(uuid, reason))
   }
 
-  serv.pardonUsername = async (username) => {
-    return pardon(username)
+  serv.ban = async (uuid, reason) => {
+    return serv.getUUIDFromUsername(username).then(uuid => serv.ban(uuid, reason))
   }
 
-  serv.pardonUUID = async (username) => {
-    return serv.getUUIDFromUsername(username)
-      .then(pardon)
+  serv.pardon = async (uuid) => {
+    return pardon(uuid)
   }
 
   serv.pardonIP = async (IP) => {
@@ -374,17 +369,11 @@ module.exports.player = function (player, serv) {
   player.kick = (reason = 'You were kicked!') =>
     player._client.end(reason)
 
-  player.banUUID = reason => {
+  player.ban = reason => {
     reason = reason || 'You were banned!'
     player.kick(reason)
     const uuid = player.uuid
     return serv.ban(uuid, reason)
-  }
-  player.banUsername = reason => {
-    reason = reason || 'You were banned!'
-    player.kick(reason)
-    const nick = player.username
-    return serv.banUsername(nick, reason)
   }
   player.banIP = reason => {
     reason = reason || 'You were IP banned!'
@@ -394,5 +383,4 @@ module.exports.player = function (player, serv) {
 
   // I think it doesn't do anything but ok well...
   player.pardonUUID = () => serv.pardonUsername(player.uuid)
-  player.pardonUsername = () => serv.pardonUsername(player.username)
 }

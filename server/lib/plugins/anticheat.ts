@@ -1,7 +1,7 @@
 import { Physics, PlayerState } from 'prismarine-physics'
 import * as mcDataInitializer from 'minecraft-data'
 import { Vec3 } from 'vec3'
-import { MCServer } from '../..'
+import { MCPlayer, MCServer } from '../..'
 
 
 function vec3MostlyEquals(a: Vec3, b: Vec3): Boolean {
@@ -12,7 +12,7 @@ function vec3MostlyEquals(a: Vec3, b: Vec3): Boolean {
 	return xDifference * xDifference + yDifference * yDifference + zDifference * zDifference <= 9.0E-4
 }
 
-function floatEquals(a: Vec3, b: Vec3) {
+function vec3FloatEquals(a: Vec3, b: Vec3) {
 	const difference: Vec3 = a.minus(b)
 	const xDifference: number = Math.abs(difference.x)
 	const yDifference: number = Math.abs(difference.y)
@@ -20,16 +20,79 @@ function floatEquals(a: Vec3, b: Vec3) {
 	return xDifference < 0.00001 && yDifference < 0.00001 && zDifference < 0.00001
 }
 
+function lerp(v0: number, v1: number, t: number) {
+    return v0 * (1 - t) + v1 * t
+}
 
-module.exports.player = function (player, serv: MCServer, { version }) {
+interface ControlState {
+	forward: boolean
+	back: boolean,
+	left: boolean,
+	right: boolean,
+	sneak: boolean,
+	sprint: boolean,
+	jump: boolean
+
+}
+
+export interface State {
+	pos: Vec3
+	vel: Vec3
+	control: ControlState
+	yaw: number
+	pitch: number
+	onGround: boolean
+	isCollidedHorizontally: boolean
+	isCollidedVertically: boolean
+	isInWater: boolean
+	isInLava: boolean
+	isInWeb: boolean
+	jumpTicks: number
+	jumpQueued: boolean
+}
+
+
+
+function calculateApproximateGcd(items: number[]) {
+	items = items.sort((a, b) => a - b)
+	let bestN = 0
+	let bestDeviation = 1
+
+	// this is kinda inefficient but it works well
+	for (let n = 1; n < 200; n ++) {
+		let highestDeviationForN = 0
+		for (const item of items.slice(1)) {
+			let deviation = (item / (items[0] / n)) % 1
+			deviation = Math.min(deviation, 1 - deviation)
+			if (deviation > highestDeviationForN)
+				highestDeviationForN = deviation
+		}
+
+		if (highestDeviationForN < bestDeviation) {
+			bestDeviation = highestDeviationForN
+			bestN = n
+		}
+	}
+
+	console.log('bestDeviation:', bestDeviation)
+	return items[0] / bestN
+}
+
+function reverseSensitivity(s: number) {
+	let d6 = s / .15 / 8
+	let d5 = Math.cbrt(d6)
+	return Math.max((d5 - .2) / .3, 0)
+}
+
+module.exports.player = function (player: MCPlayer, serv: MCServer, { version }) {
 	const mcData = mcDataInitializer(version)
 
 	player.state = {
 		vel: new Vec3(0, 0, 0),
 	}
 
-	function simulateMove(physics: any, originalState: any, yaw: number, pitch: number, controlStates: any) {
-		const state = {
+	function simulateMove(physics: any, originalState: any, yaw: number, pitch: number, controlStates: ControlState) {
+		const state: Partial<State> = {
 			pos: originalState.pos.clone(),
 			vel: originalState.vel.clone(),
 			control: controlStates,
@@ -68,7 +131,7 @@ module.exports.player = function (player, serv: MCServer, { version }) {
 			const sidewaysDirection = null
 			const jump = false
 				// for (const jump of [false, true]) {
-					const control = {
+					const control: ControlState = {
 						forward: forwardDirection === 'forward',
 						back: forwardDirection === 'back',
 						left: sidewaysDirection === 'left',
@@ -97,7 +160,7 @@ module.exports.player = function (player, serv: MCServer, { version }) {
 			let correctSimulation = null
 			for (const simulation of potentialSimulations) {
 				potentialSimulationPositions.push(simulation.pos)
-				if (floatEquals(position, simulation.pos)) {
+				if (vec3FloatEquals(position, simulation.pos)) {
 					correctSimulation = simulation
 					break
 				}
@@ -141,58 +204,73 @@ module.exports.player = function (player, serv: MCServer, { version }) {
 	let sensitivity: number = highestPossibleSensitivity
 
 	function calculateModuloForLook(look: number, s: number): number {
-		let modulo = look % sensitivity
+		let modulo = look % s
 		if (modulo > s / 2)
 			modulo -= s
-		console.log(modulo, look)
-		return modulo
+		return Math.abs(modulo)
 	}
 
 	function isUnacceptableLook(look: number, s: number): boolean {
 		if (look < 0.00005) return false // sometimes the look direction is really low, idk why
-		// be more generous when the look is higher
-		return (calculateModuloForLook(look, s) > 0.00225 * look)
+		return calculateModuloForLook(look, s) > 0.005
 	}
 
 	let previousMouseSpeed = 0
 	let positionReset = false
+
+	let rawYawDifference: number
+	let rawPitchDifference: number
+	let rawYawDifference2: number
+	let rawPitchDifference2: number
 
 	function updateLook(yaw: number, pitch: number) {
 		if (player.isNpc) return
 		if (Math.fround(yaw) !== yaw && Math.fround(pitch) !== pitch) {
 			console.log('player\'s yaw/pitch isn\'t a float! they are hacking!')
 			player.kick('Cheating :(')
+			return
 		}
 		let previousRawYaw = rawYaw
 		let previousRawPitch = rawPitch
 		rawYaw = yaw
 		rawPitch = pitch
+		rawYawDifference = Math.abs(previousRawYaw - yaw)
+		rawPitchDifference = Math.abs(previousRawPitch - pitch)
 
 		// the player was teleported or something, ignore this tick
 		if (positionReset) {
 			positionReset = false
+			console.log('ok positions reset, facing', yaw, pitch)
+			// remove the last two (because yaw and pitch) things
+			lookDifferences.delete(Array.from(lookDifferences)[lookDifferences.size - 1])
+			lookDifferences.delete(Array.from(lookDifferences)[lookDifferences.size - 1])
 			return
 		}
 
-		const rawYawDifference = Math.abs(previousRawYaw - yaw)
-		const rawPitchDifference = Math.abs(previousRawPitch - pitch)
+		let previousRawYawDifference = rawYawDifference
+		let previousRawPitchDifference = rawPitchDifference
+		let previousRawYawDifference2 = rawYawDifference2
+		let previousRawPitchDifference2 = rawPitchDifference2
+		rawYawDifference2 = previousRawYawDifference - rawYawDifference
+		rawPitchDifference2 = previousRawPitchDifference - rawPitchDifference
+		// console.log(previousRawYawDifference2, rawYawDifference2)
+		// return
 		// if (rawYawDifference < lowestPossibleSensitivity && rawPitchDifference < lowestPossibleSensitivity) return console.log('probably in cinematic camera')
+		console.log(rawYawDifference, rawPitchDifference, yaw, pitch)
 
 		if (previousRawYaw !== undefined) {
-
-			// console.log('difference:', rawYawDifference, rawPitchDifference)
 			if (certainAboutSensitivity) {
 				if (
 					isUnacceptableLook(rawYawDifference, sensitivity)
-					|| isUnacceptableLook(rawPitchDifference, sensitivity)
+					|| (pitch !== 90 && pitch !== -90 && isUnacceptableLook(rawPitchDifference, sensitivity))
 				) {
+					console.log('difference:', rawYawDifference, rawPitchDifference)
 					console.log('look direction is impossible!')
 					return player.kick('Cheating :(')
 				}
 				// since we know the sensitivity, we can calculate how fast the player's mouse is going
 				const mouseSpeed = Math.hypot(rawYawDifference, rawPitchDifference) / sensitivity
 				const mouseAcceleration = mouseSpeed - previousMouseSpeed
-				// console.log(mouseSpeed, rawYawDifference, rawPitchDifference)
 				// console.log(mouseAcceleration)
 				// moving the mouse this fast is not physically possible, my record is 5483
 				// this is disabled because i need to figure out a way to detect when the server forces the mouse to move
@@ -205,81 +283,34 @@ module.exports.player = function (player, serv: MCServer, { version }) {
 				// }
 				previousMouseSpeed = mouseSpeed
 			} else {
-				if (rawYawDifference !== 0)
+				if (
+					rawYawDifference !== 0
+					&& yaw !== 0
+					// make sure there's not already a similar number
+					&& !Array.from(lookDifferences).find(d => Math.abs(d - rawYawDifference) < .001)
+				) {
 					lookDifferences.add(rawYawDifference)
-				if (rawPitchDifference !== 0)
+				} if (
+					rawPitchDifference !== 0
+					&& pitch !== 90 && pitch !== -90
+					// make sure there's not already a similar number
+					&& !Array.from(lookDifferences).find(d => Math.abs(d - rawPitchDifference) < .001)
+				) {
 					lookDifferences.add(rawPitchDifference)
-				// console.log('aight so the sensitivity rn is', sensitivity)
-				if (rawYawDifference && rawYawDifference < sensitivity)
-					sensitivity = rawYawDifference
-				if (rawPitchDifference && rawPitchDifference < sensitivity)
-					sensitivity = rawPitchDifference
-
-				const currentSensitivityIncorrectness = findNonMatchingSensitivities(sensitivity).length
-				const yawModulo = calculateModuloForLook(rawYawDifference, sensitivity)
-				const pitchModulo = calculateModuloForLook(rawPitchDifference, sensitivity)
-				if (yawModulo > lowestPossibleSensitivity && yawModulo < sensitivity && findNonMatchingSensitivities(yawModulo).length < currentSensitivityIncorrectness) {
-					console.log('epic, new sensitivity', yawModulo)
-					sensitivity = yawModulo
-				}
-				if (pitchModulo > lowestPossibleSensitivity && pitchModulo < sensitivity && findNonMatchingSensitivities(pitchModulo).length < currentSensitivityIncorrectness) {
-					console.log('epic, new sensitivity', pitchModulo)
-					sensitivity = pitchModulo
-				}
-
-
-				function trySensitivity(s: number) {
-					if (s === 0) return false // no
-					for (const lookDifference of lookDifferences) {
-						if (isUnacceptableLook(lookDifference, s))
-							return false
-					}
-					return true
 				}
 			
-				function findNonMatchingSensitivities(s: number, returnModulo?: boolean) {
-					const nonMatchingSensitivities: number[] = []
-					for (const lookDifference of lookDifferences) {
-						const modulo = calculateModuloForLook(lookDifference, s)
-						if (modulo > 0.00225 * s)
-							nonMatchingSensitivities.push(returnModulo ? modulo : lookDifference)
-					}
-					return nonMatchingSensitivities
-				}
-				// console.log('lookDifferences', new Set(Array.from(lookDifferences).sort((a, b) => a - b)), sensitivity)
-				if (lookDifferences.size >= 20) {
-					// ok if we haven't figured out the sensitivity by then just assume they're cheating
-					if (lookDifferences.size >= 100) {
-						console.log('ok we couldn\'t figure out the sensitivity so just assume they\'re cheating', sensitivity)
-						player.kick('Cheating :(')
-					}
-					// console.log('lookdifferences size is 20, now calculating sensitivity', lookDifferences)
-					// console.log(lookDifferences)
-					for (const lookDifference of lookDifferences) {
-						for (const lookDifference2 of lookDifferences) {
-							if (lookDifference - .009 <= lookDifference2) continue // lookDifference2 is always less than lookDifference
-							const lookDifferenceDifference = lookDifference - lookDifference2
-							if (lookDifferenceDifference < sensitivity) {
-								sensitivity = lookDifferenceDifference
-								const nonMatchingModulos = findNonMatchingSensitivities(sensitivity, true)
-								if (nonMatchingModulos.length) console.log('failed finding look difference, trying to calculate it from known data', sensitivity, nonMatchingModulos)
-								for (const nonMatchingModulo of nonMatchingModulos)
-									if (nonMatchingModulo < sensitivity) {
-										// console.log('nice! found better sensitivity', nonMatchingModulo, '<', sensitivity)
-										if (findNonMatchingSensitivities(nonMatchingModulo).length < nonMatchingModulos.length)
-											sensitivity = nonMatchingModulo
-									}
-							}
-						}
-					}
+				if (lookDifferences.size >= 10) {
+					sensitivity = calculateApproximateGcd(Array.from(lookDifferences))
+					console.log('calculated sensitivity:', sensitivity)
 					if (sensitivity < lowestPossibleSensitivity) {
 						console.log('player\'s sensitivity is too low', sensitivity)
 						player.kick('Cheating :(')
 					}
-					if (sensitivity && trySensitivity(sensitivity)) {
-						certainAboutSensitivity = true
-						console.log('ok! calculated sensitivity to be', sensitivity, lookDifferences)
-					}
+					certainAboutSensitivity = true
+					const reversedSensitivity = reverseSensitivity(sensitivity)
+					console.log('ok! calculated sensitivity to be', sensitivity, 0)
+					console.log('client-side sensitivity:', reversedSensitivity * 100, lookDifferences)
+					player.chat(`Calculated your sensitivity to be ${Math.floor(reversedSensitivity * 100 + .02)}%`)
 				}
 			}
 		}
@@ -294,10 +325,11 @@ module.exports.player = function (player, serv: MCServer, { version }) {
 	})
 
 	player.on('tick', () => {
-		if (settingsPacketsInThisTick === 2) {
+		if (settingsPacketsInThisTick === 1) {
 			sensitivity = highestPossibleSensitivity
 			certainAboutSensitivity = false
 			lookDifferences.clear()
+			console.log('looks like the player changed their sensitivity setting')
 		}
 		settingsPacketsInThisTick = 0
 	})
@@ -322,4 +354,3 @@ module.exports.player = function (player, serv: MCServer, { version }) {
 		updateLook(yaw, pitch)
 	})
 }
-  
